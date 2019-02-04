@@ -1,6 +1,6 @@
 object CommandUtil {
 
-  val about =
+  val about: String =
     """
       |It's an Scala implementation of "The Goose Game Kata" (https://en.wikipedia.org/wiki/Game_of_the_Goose)
       |How to use:
@@ -18,5 +18,7 @@ object CommandUtil {
     """.stripMargin
 
   def nextUser(users: Map[String, Int], current: String): String = users.keysIterator.toList(users.keysIterator.indexOf(current) + 1 % users.size)
+
+
 
 }
