@@ -1,7 +1,9 @@
 import GooseGame.Users
 
 object CommandsProcessor {
-
+  /**
+    * A string used as a description of the project
+    */
   val about: String =
     """
       |It's an Scala implementation of "The Goose Game Kata" (https://en.wikipedia.org/wiki/Game_of_the_Goose)
@@ -19,15 +21,12 @@ object CommandsProcessor {
       |   2. The Goose(5, 9, 14, 18, 23, 27). When you reach it, you will move again on the same step.
     """.stripMargin
 
-  val showRules: String = {
-    """
-      |GAME RULES:
-      |Before starting game you need to register users for playing.
-      |For start registration process - put 'play' to console.
-      |Then - you need to set number of players and names for players.
-    """.stripMargin
-  }
-
+  /**
+    * This method is used for iterating a map. It takes an index of current user, adds 1 to it and divides by a size using mod.
+    * @param users Current Users
+    * @param current Current User
+    * @return
+    */
   def nextUser(users: Users, current: String): String = {
     users.keysIterator.toList(users.keysIterator.indexOf(current) + 1 % users.size)
   }
