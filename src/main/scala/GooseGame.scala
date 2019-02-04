@@ -39,7 +39,7 @@ object GooseGame /* extends App*/ {
     val input = scala.io.StdIn.readLine()
 
     if (input == s"$turnOf roll") (6, 6) else {
-      println ("Wrong directive")
+      println("Wrong directive")
       roll(turnOf, users)
     }
   }
@@ -84,10 +84,25 @@ object GooseGame /* extends App*/ {
   // The Bridge message
   // etc
 
+  val geese: Seq[Int] = Seq(5, 9, 14, 18, 23, 27)
+
+  def message(user: String, currentPosition: Int, newPosition: String): String =
+    s"$user moves from $currentPosition to $newPosition"
+
   // here 0 as Start
   def move(user: String, diceSum: Int, currentPosition: Int): (String, Int) = diceSum + currentPosition match {
-    case a if a > 63 => (s"$user moves from $currentPosition to 63. user Wins!!", 63)
-    case newPosition => (s"$user moves from $currentPosition to $newPosition", newPosition)
+
+    case a if a > 63 => (message(user, currentPosition, "63") + "user Wins!!", 63)
+
+    case 6 => (message(user, currentPosition, "The Bridge") + s"$user jumps to 12", 12)
+
+    case a if geese.contains(a) && geese.contains(a + diceSum) =>
+      (message(user, currentPosition, "The Goose") + s"$user moves again and goes to ${a + diceSum}", a + diceSum)
+
+    case a if geese.contains(a) =>
+      (s"$user moves from $currentPosition to The Goose. $user moves again and goes to ${a + diceSum}", a + diceSum)
+
+    case newPosition => (message(user, currentPosition, newPosition.toString), newPosition)
   }
 
   //start()
