@@ -12,7 +12,7 @@ object GooseGame extends App {
 
     } else if (initialInput.equals("play")) {
 
-      val users: Map[String, Int] = PlayerRegistrationUtil.register
+      val users: Users = PlayerRegistrationUtil.register
       println("Push Space bar and Enter to start")
 
       if (isStarted) {

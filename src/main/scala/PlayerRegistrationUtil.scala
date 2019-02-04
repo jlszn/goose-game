@@ -1,7 +1,9 @@
+import GooseGame.Users
+
 object PlayerRegistrationUtil {
 
   // returns registered users in the end, until then side-effects with printlns
-  def register: Map[String, Int] = {
+  def register: Users = {
     regUsers(retrieveCount, Map())
   }
 
@@ -18,7 +20,7 @@ object PlayerRegistrationUtil {
   }
 
   //add new players
-  def regUsers(usersCount: Int, users: Map[String, Int]): Map[String, Int] = {
+  def regUsers(usersCount: Int, users: Users): Users = {
     if (usersCount == 0) {
       users
     } else {
@@ -27,7 +29,7 @@ object PlayerRegistrationUtil {
   }
 
   //retrieve name for new player
-  def registerUser(users: Map[String, Int]): Map[String, Int] = {
+  def registerUser(users: Users): Users = {
     println("Enter player name: ")
     val newUser = scala.io.StdIn.readLine()
 
@@ -35,7 +37,7 @@ object PlayerRegistrationUtil {
   }
 
   //check player names for unique and if the identical - retrieve new username for Player
-  def checkUsers(currentUsers: Map[String, Int], newUser: String): Map[String, Int] = {
+  def checkUsers(currentUsers: Users, newUser: String): Users = {
 
     //if newName equals to some player in Map - requesting username again
     if (currentUsers.contains(newUser)) {
