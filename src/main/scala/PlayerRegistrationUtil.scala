@@ -1,5 +1,5 @@
 object PlayerRegistrationUtil {
-  // Игорь
+
   // returns two registered users in the end, until then side-effects with printlns
   def register: (String, String) = {
     println("Enter first player name:")
