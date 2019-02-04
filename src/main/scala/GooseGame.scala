@@ -52,6 +52,7 @@ object GooseGame extends App {
     }
   }
 
+  // move to Utils Seq, 63, so on...
   // returns message and new order of users
   def move(user: String, diceSum: Int, users: Users): (String, Users) = {
 
