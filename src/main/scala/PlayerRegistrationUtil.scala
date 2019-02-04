@@ -1,4 +1,4 @@
-object PlayerRegistrationUtil extends App {
+object PlayerRegistrationUtil {
 
   // returns registered users in the end, until then side-effects with printlns
   def register: Map[String, Int] = {
