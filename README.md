@@ -31,3 +31,7 @@ additional features if we still have time tomorrow:
 - DONE support from 2 to 6 players
 
 - ? validate with Eithers
+
+- add checking if name exists
+- add checking if input is ok
+- add outputing of next user's name
