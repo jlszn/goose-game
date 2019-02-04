@@ -7,7 +7,7 @@ object GooseGame extends App {
 
   def start(): Unit = {
 
-    println("Welcome to Goose Game!")
+    println("Welcome to the Game og the Goose!")
     println("Type 'about' to see the game rules\n" +
       "Type 'play' to start users registration.")
 

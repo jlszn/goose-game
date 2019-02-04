@@ -35,6 +35,9 @@ object CommandsProcessor {
     users.keysIterator.toList((users.keysIterator.indexOf(current) + 1) % users.size)
   }
 
+  /**
+   * Method for processing initial console commands "about" and "play".
+   */
   def initialCommandsProcessing(): Unit = {
     val initialInput = scala.io.StdIn.readLine()
 
@@ -58,7 +61,11 @@ object CommandsProcessor {
     }
   }
 
-  //check start button pressed
+  /**
+   * Method for checking start game button after registration.
+   *
+   * @return Boolean
+   */
   def isStarted: Boolean = {
     val startInput = scala.io.StdIn.readLine()
 
