@@ -36,7 +36,7 @@ object GooseGame /* extends App*/ {
 
     println("Let's start!")
 
-    play(users)
+    //play(users)
   }
 
   // Вадим
@@ -50,9 +50,7 @@ object GooseGame /* extends App*/ {
     }
   }
 
-  def play(users: (String, String), positions: (Int, Int) = (0, 0)): Unit = {
-
-    // represent 0 with "Start"
+  /*def play(users: (String, String), positions: (Int, Int) = (0, 0)): Unit = {
 
     val user1: String = users._1
     val user2: String = users._2
@@ -62,9 +60,9 @@ object GooseGame /* extends App*/ {
       else {
         val dice: (Int, Int) = roll(turnOf, users)
 
-        //        def moveThis(oldPosition: Int): (String, Users) = move(turnOf, dice._1 + dice._2, oldPosition, Map())
+        def moveThis(oldPosition: Int): (String, Users) = move(turnOf, dice._1 + dice._2, oldPosition, Map())
 
-        /*  def newPosition(oldPosition: Int): Users = {
+        def newPosition(oldPosition: Int): Users = {
           val moved = moveThis(oldPosition)
           println(moved._1)
           moved._2
@@ -80,11 +78,9 @@ object GooseGame /* extends App*/ {
 
       }
 
-    else
+    else playRound(user1)
+  }*/
 
-    playRound(user1)*/
-      }
-  }
 
   // returns new position and message
   // $user moves from $currentPosition to $newPosition"
@@ -101,9 +97,11 @@ object GooseGame /* extends App*/ {
     // switch to .fold
     val currentPosition: Int = users(user)
 
+    def zero: String = if (currentPosition == 0) "the Start" else s"$currentPosition"
+
     // messages
     def message(position: String): String =
-      s"$user moves from ${if (currentPosition == 0) "Start" else currentPosition} to $position.\n"
+      s"$user moves from $zero to $position.\n"
 
     def bouncesMessage(position: Int): String =
       message("63") + s". $user bounces! $user returns to ${63 - (position - 63)}"
@@ -118,7 +116,7 @@ object GooseGame /* extends App*/ {
       gooseMessage(position) + gooseM(position + diceSum)
 
     def prankMessage(user: (String, Int), addition: Option[String] = None): String = addition match {
-      case Some(a) => a + s"On ${user._2} there is ${user._1}, who returns to $currentPosition."
+      case Some(a) => a + s"On ${user._2} there is ${user._1}, who returns to $zero."
       case _ => s"On ${user._2} there is ${user._1}, who returns to $currentPosition"
     }
 
@@ -149,7 +147,7 @@ object GooseGame /* extends App*/ {
 
 object Test extends App {
 
-  val users = Map("Mary" -> 11, "John" -> 17)
+  val users = Map("Mary" -> 0, "John" -> 3)
 
   println()
   println(GooseGame.move("Mary", 3, users)._1)
