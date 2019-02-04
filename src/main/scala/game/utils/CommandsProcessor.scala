@@ -24,7 +24,6 @@ object CommandsProcessor {
       |   2. The Goose(5, 9, 14, 18, 23, 27). When you reach it, you will move again on the same step.
     """.stripMargin
 
-
   /**
     * This method is used for iterating a map. It takes an index of current user, adds 1 to it and divides by a size using mod.
     * @param users Current Users

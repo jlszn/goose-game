@@ -5,6 +5,7 @@ import java.security.SecureRandom
 import game.Users
 
 object RandomUtil {
+
   private val START = 1
   private val END = 6
 
