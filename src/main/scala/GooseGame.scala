@@ -30,19 +30,26 @@ object GooseGame /* extends App*/ {
 
     println("Let's start!")
 
-    // val input = scala.io.StdIn.readLine()
 
     play(users)
   }
 
   // Вадим
   // returns values from both dice
-  def roll: (Int, Int) = (6, 6)
+  def roll(turnOf: String, users: (String, String)): (Int, Int) = {
+    val input = scala.io.StdIn.readLine()
+
+    if (input == s"$turnOf roll") (6, 6) else {
+      println ("Wrong directive")
+      roll(turnOf, users)
+    }
+  }
 
   def play(users: (String, String), positions: (Int, Int) = (0, 0)): Unit = {
 
     // get input
     // validate user: name exists, their turn
+
 
     // represent 0 with "Start"
 
@@ -54,7 +61,7 @@ object GooseGame /* extends App*/ {
 
         // wait for directive to roll
 
-        val dice: (Int, Int) = roll
+        val dice: (Int, Int) = roll(turnOf, users)
 
         def moveThis(oldPosition: Int): (String, Int) = move(turnOf, dice._1 + dice._2, oldPosition)
 
