@@ -1,3 +1,7 @@
+package game
+
+import utils.{CommandsProcessor, RandomUtil}
+
 object GooseGame extends App {
 
   type Users = Map[String, Int]
