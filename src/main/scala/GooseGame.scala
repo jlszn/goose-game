@@ -30,7 +30,6 @@ object GooseGame /* extends App*/ {
 
     println("Let's start!")
 
-
     play(users)
   }
 
@@ -47,10 +46,6 @@ object GooseGame /* extends App*/ {
 
   def play(users: (String, String), positions: (Int, Int) = (0, 0)): Unit = {
 
-    // get input
-    // validate user: name exists, their turn
-
-
     // represent 0 with "Start"
 
     val user1: String = users._1
@@ -58,8 +53,6 @@ object GooseGame /* extends App*/ {
 
     def playRound(turnOf: String, position1: Int = 0, position2: Int = 0): Unit =
       if (position1 != 63 && position2 != 63) {
-
-        // wait for directive to roll
 
         val dice: (Int, Int) = roll(turnOf, users)
 
