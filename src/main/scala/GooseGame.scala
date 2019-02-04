@@ -1,4 +1,4 @@
-object GooseGame extends App {
+object GooseGame /* extends App*/ {
 
   // (un)expected behaviour to handle:
 
@@ -13,18 +13,38 @@ object GooseGame extends App {
   // provide a way to finish the game anytime - ask if the user wants to restart or just quit the app
   // provide a game description/rules on "about" input
   // provide a way to change names
+  // tests
+  // randomize who would be the first to roll
 
   // validate with Eithers?
 
   // Игорь
   // returns two registered users in the end, until then side-effects with printlns
-  def register: (String, String) = ???
+  def register: (String, String) = ("", "")
+
+  def start(): Unit = {
+
+    println("Welcome to Goose Game!")
+
+    val users: (String, String) = register
+
+    println("Let's start!")
+
+    // val input = scala.io.StdIn.readLine()
+
+    play(users)
+  }
 
   // Вадим
   // returns values from both dice
-  def roll: (Int, Int) = ???
+  def roll: (Int, Int) = (6, 6)
 
   def play(users: (String, String), positions: (Int, Int) = (0, 0)): Unit = {
+
+    // get input
+    // validate user: name exists, their turn
+
+    // represent 0 with "Start"
 
     val user1: String = users._1
     val user2: String = users._2
@@ -32,27 +52,29 @@ object GooseGame extends App {
     def playRound(turnOf: String, position1: Int = 0, position2: Int = 0): Unit =
       if (position1 != 63 && position2 != 63) {
 
-        // get input
-        // validate user: name exists, their turn
+        // wait for directive to roll
 
         val dice: (Int, Int) = roll
 
-        // output "$user rolls $dice_.1, $dice._2"
+        def moveThis(oldPosition: Int): (String, Int) = move(turnOf, dice._1 + dice._2, oldPosition)
 
-        val moveThis = (oldPosition: Int) => move(dice._1 + dice._2, oldPosition)
-
-        val newPosition: Int => Int = (oldPosition: Int) => moveThis(oldPosition)._2
-        // val moveMessage = (oldPosition: Int) => moveThis(oldPosition)._2
+        def newPosition(oldPosition: Int): Int = {
+          val moved = moveThis(oldPosition)
+          println(moved._1)
+          moved._2
+        }
 
         val isTurnOfUser1 = turnOf == user1
 
         val nextUser: String = if (isTurnOfUser1) user2 else user1
         val updatePosition: Int = if (isTurnOfUser1) newPosition(position1) else newPosition(position2)
 
-        if (isTurnOfUser1) playRound(nextUser, updatePosition, position2) else playRound(nextUser, position1, updatePosition)
-      } else println("Game over")
+        if (isTurnOfUser1) playRound(nextUser, updatePosition, position2)
+        else playRound(nextUser, position1, updatePosition)
 
-    //play();
+      }
+      else println("Game over")
+
     playRound(user1)
   }
 
@@ -61,9 +83,19 @@ object GooseGame extends App {
   // The Goose message
   // The Bridge message
   // etc
-  def move(diceSum: Int, currentPosition: Int): (String, Int) = ???
 
+  // here 0 as Start
+  def move(user: String, diceSum: Int, currentPosition: Int): (String, Int) = diceSum + currentPosition match {
+    case a if a > 63 => (s"$user moves from $currentPosition to 63. user Wins!!", 63)
+    case newPosition => (s"$user moves from $currentPosition to $newPosition", newPosition)
+  }
 
-  start()
+  //start()
+
+}
+
+object Test extends App {
+
+  println(GooseGame.play(("John", "Mary")))
 
 }
