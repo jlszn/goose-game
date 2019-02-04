@@ -1,6 +1,6 @@
 /.idea/
 /target/
-/project/target/
+/goose-game-build/target/
 *.class
 *.log
 /project/
