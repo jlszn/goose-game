@@ -1,6 +1,7 @@
 package game
 
 import game.utils.{CommandsProcessor, RandomUtil}
+import utils.Rules._
 
 object GooseGame extends App {
 
@@ -30,9 +31,6 @@ object GooseGame extends App {
   // returns message and new order of users
   def move(user: String, diceSum: Int, users: Users): (String, Users) = {
 
-    // move to rules (?)
-    val geese: Seq[Int] = Seq(5, 9, 14, 18, 23, 27)
-
     // handle emptiness
     // switch to .fold
     val currentPosition: Int = users(user)
@@ -44,7 +42,7 @@ object GooseGame extends App {
       s"$user moves from $zero to $position"
 
     def bouncesMessage(position: Int): String =
-      message("63") + s".\n$user bounces! $user returns to ${63 - (position - 63)}"
+      message(s"$END") + s".\n$user bounces! $user returns to ${END - (position - END)}"
 
     def gooseM(position: Int): String =
       s", The Goose.\n$user moves again and goes to ${position + diceSum}"
@@ -72,11 +70,11 @@ object GooseGame extends App {
       }
 
     diceSum + currentPosition match {
-      case a if a > 63 => (bouncesMessage(a), users + (user -> (a - 63)))
-      case 63 => (message("63") + s".\n$user Wins!!", users + (user -> 63))
-      case 6 => prankOrMove(12, message(s"The Bridge.\n$user jumps to 12."))
-      case a if geese.contains(a) && geese.contains(a + diceSum) => prankOrMove(a + diceSum, doubleGoose(a), diceSum)
-      case a if geese.contains(a) => prankOrMove(a, gooseMessage(a), diceSum)
+      case a if a > END => (bouncesMessage(a), users + (user -> (a - END)))
+      case END => (message(s"$END") + s".\n$user Wins!!", users + (user -> END))
+      case BRIDGE_START => prankOrMove(BRIDGE_END, message(s"The Bridge.\n$user jumps to $BRIDGE_END."))
+      case a if GEESE.contains(a) && GEESE.contains(a + diceSum) => prankOrMove(a + diceSum, doubleGoose(a), diceSum)
+      case a if GEESE.contains(a) => prankOrMove(a, gooseMessage(a), diceSum)
       case a => prankOrMove(a, message(s"$a"))
     }
   }
@@ -86,7 +84,7 @@ object GooseGame extends App {
   def play(users: Users): Unit = {
 
     def playRound(turnOf: String, users: Users): Unit =
-      if (users.exists(_._2 == 63)) println("Game over")
+      if (users.exists(_._2 == END)) println("Game over")
       else {
         val dice: (Int, Int) = roll(turnOf)
 
