@@ -1,6 +1,6 @@
 import GooseGame.Users
 
-object CommandUtil {
+object CommandsProcessor {
 
   val about: String =
     """
@@ -30,6 +30,43 @@ object CommandUtil {
 
   def nextUser(users: Users, current: String): String = {
     users.keysIterator.toList(users.keysIterator.indexOf(current) + 1 % users.size)
+  }
+
+  def initialCommandsProcessing(): Unit = {
+    val initialInput = scala.io.StdIn.readLine()
+
+    initialInput match {
+      case "about" =>
+        println(about)
+        initialCommandsProcessing()
+
+      case "play" =>
+        val users: Map[String, Int] = PlayerRegistrationUtil.register
+        println("Push Space bar and Enter to start")
+        if (isStarted) {
+          println("Let's start!")
+          GooseGame.play(users)
+        }
+
+      case _ =>
+        println("Command not found.")
+        println("Type 'about' to see the game rules, or skip to start users registration.")
+        initialCommandsProcessing()
+
+    }
+
+  }
+
+  //check start button pressed
+  def isStarted: Boolean = {
+    val startInput = scala.io.StdIn.readLine()
+
+    if (startInput != " ") {
+      println("Hint: for start a game - press Space bar and Enter")
+      isStarted
+    } else {
+      true
+    }
   }
 
 }

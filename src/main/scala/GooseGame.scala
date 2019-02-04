@@ -2,51 +2,13 @@ object GooseGame extends App {
 
   type Users = Map[String, Int]
 
-  def initialCommandsProcessing(): Unit = {
-    val initialInput = scala.io.StdIn.readLine()
-
-    if (initialInput.equals("about")) {
-
-      println(CommandUtil.showRules)
-
-      initialCommandsProcessing()
-
-    } else if (initialInput.equals("play")) {
-
-      val users: Users = PlayerRegistrationUtil.register
-      println("Push Space bar and Enter to start")
-
-      if (isStarted) {
-        println("Let's start!\n")
-        play(users)
-      }
-
-    } else {
-      println("Command not found.")
-      println("Type 'about' to see the game rules, or skip to start users registration.")
-      initialCommandsProcessing()
-    }
-  }
-
-  //check start button pressed
-  def isStarted: Boolean = {
-    val startInput = scala.io.StdIn.readLine()
-
-    if (startInput != " ") {
-      println("Hint: to start a game - press Space bar and Enter")
-      isStarted
-    } else {
-      true
-    }
-  }
-
   def start(): Unit = {
 
     println("Welcome to Goose Game!")
     println("Type 'about' to see the game rules\n" +
       "Type 'play' to start users registration.")
 
-    initialCommandsProcessing()
+    CommandsProcessor.initialCommandsProcessing()
   }
 
   def roll(turnOf: String): (Int, Int) = {
@@ -134,7 +96,7 @@ object GooseGame extends App {
           moved._2
         }
 
-        val nextUser: String = CommandUtil.nextUser(users, turnOf)
+        val nextUser: String = CommandsProcessor.nextUser(users, turnOf)
 
         playRound(nextUser, movedUsers)
       }
