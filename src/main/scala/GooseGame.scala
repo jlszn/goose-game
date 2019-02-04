@@ -8,16 +8,13 @@ object GooseGame extends App {
   // check if "move $name" is a registered name
   // check if it's the turn of the user from the input, else give user a hint
 
-  // additional features if we still have time tomorrow
+  // additional features if we still have time tomorrow:
+
   // provide a way to finish the game anytime - ask if the user wants to restart or just quit the app
   // provide a game description/rules on "about" input
-  def start() = {
+  // provide a way to change names
 
-    // get input until two users are registered
-
-    // on Space - output "Start" and call play()
-
-  }
+  // validate with Eithers?
 
   // Игорь
   // returns two registered users in the end, until then side-effects with printlns
