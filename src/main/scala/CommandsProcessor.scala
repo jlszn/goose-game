@@ -25,7 +25,7 @@ object CommandsProcessor {
     * This method is used for iterating a map. It takes an index of current user, adds 1 to it and divides by a size using mod.
     * @param users Current Users
     * @param current Current User
-    * @return
+    * @return Next User
     */
   def nextUser(users: Users, current: String): String = {
     users.keysIterator.toList(users.keysIterator.indexOf(current) + 1 % users.size)
