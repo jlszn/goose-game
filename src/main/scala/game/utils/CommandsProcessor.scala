@@ -35,8 +35,8 @@ object CommandsProcessor {
    * This method is used for iterating over a map. It takes an index of current user,
    * adds 1 to it and divides by a size using mod.
    *
-   * @param users   Current Users
-   * @param current Current User
+   * @param users current users
+   * @param current current user
    * @return
    */
 >>>>>>> origin/game-control:src/main/scala/game/utils/CommandsProcessor.scala
