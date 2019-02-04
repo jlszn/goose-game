@@ -35,3 +35,5 @@ additional features if we still have time tomorrow:
 - add checking if name exists
 - add checking if input is ok
 - add outputing of next user's name
+- finish 
+- restart (?)
