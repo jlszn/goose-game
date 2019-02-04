@@ -6,6 +6,11 @@ object PlayerRegistrationUtil {
 
   def register: Users = registerUsers(retrieveCount, Map.empty)
 
+  /**
+   * Method for retrieving count of players from console
+   *
+   * @return Int - number of players
+   */
   def retrieveCount: Int = {
     println("Enter number of players (from 2 to 6): ")
 
@@ -19,12 +24,23 @@ object PlayerRegistrationUtil {
     }
   }
 
-  // add new players
+  /**
+   * Method for registering new players in game
+   *
+   * @param usersCount Count of Players
+   * @param users already registered Players
+   * @return Map - of registered users
+   */
   def registerUsers(usersCount: Int, users: Users): Users =
     if (usersCount == 0) users
     else registerUsers(usersCount - 1, users ++ registerUser(users))
 
-  // receive new player's name
+  /**
+   * Method for retrieving new username from console and pass to check for uniqueness
+   *
+   * @param users already registered Players
+   * @return Map - of registered users
+   */
   def registerUser(users: Users): Users = {
     println("Enter player name: ")
     val newUser = scala.io.StdIn.readLine()
@@ -32,7 +48,13 @@ object PlayerRegistrationUtil {
     checkUsers(users, newUser)
   }
 
-  // check players' name for uniqueness
+  /**
+   * Method for check players names for uniqueness
+   *
+   * @param newUser new player name for checking
+   * @param currentUsers already registered Players
+   * @return Map - of registered users
+   */
   def checkUsers(currentUsers: Users, newUser: String): Users = {
 
     // if new username is the same as another one in the Map - request a username again
