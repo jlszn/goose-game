@@ -1,3 +1,4 @@
+
 object GooseGame extends App {
 
   // (un)expected behaviour to handle:
@@ -18,7 +19,7 @@ object GooseGame extends App {
     println("Push Space bar and Enter to start")
     if (isStarted) {
       println("Start")
-//      play(users)
+      //      play(users)
     }
 
     // get input until two users are registered
@@ -27,9 +28,10 @@ object GooseGame extends App {
 
   }
 
+
   def isStarted: Boolean = {
     if (scala.io.StdIn.readLine() != " ") {
-      println("Hint: for start game - press Space bar and Enter")
+      println("Hint: for start a game - press Space bar and Enter")
       isStarted
     } else {
       true
