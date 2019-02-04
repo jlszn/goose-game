@@ -1,4 +1,6 @@
-import GooseGame.Users
+package game.utils
+
+import game.Users
 
 object PlayerRegistrationUtil {
 

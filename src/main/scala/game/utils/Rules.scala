@@ -1,3 +1,5 @@
+package game.utils
+
 object Rules {
 
   val GEESE: Seq[Int] = Seq(5, 9, 14, 18, 23, 27)
