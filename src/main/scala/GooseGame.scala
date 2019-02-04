@@ -14,14 +14,28 @@ object GooseGame extends App {
   def start(): Unit = {
 
     println("Welcome to Goose Game!")
+    println("Type 'about' to see the game rules, or 'play' to start users registration.")
 
-//    retrieve registered users for start a game
-    val users: Map[String, Int] = PlayerRegistrationUtil.register
+    initialCommandsProcessing()
+  }
 
-    println("Push Space bar and Enter to start")
-    if (isStarted) {
-      println("Let's start!")
-//      play(users)
+  def initialCommandsProcessing(): Unit = {
+    val initialInput = scala.io.StdIn.readLine()
+
+    if (initialInput.equals("about")) {
+      RulesOutput.showRules()
+      initialCommandsProcessing()
+    } else if (initialInput.equals("play")) {
+      val users: Map[String, Int] = PlayerRegistrationUtil.register
+      println("Push Space bar and Enter to start")
+      if (isStarted) {
+        println("Let's start!")
+        //play(users)
+      }
+    } else {
+      println("Command not found.")
+      println("Type 'about' to see the game rules, or skip to start users registration.")
+      initialCommandsProcessing()
     }
   }
 
