@@ -14,7 +14,7 @@ object GooseGame extends App {
   // provide a game description/rules on "about" input
   def start() = {
 
-    val users = register
+    val users = PlayerRegistrationUtil.register
 
     println("Push Space bar and Enter to start")
     if (isStarted) {
@@ -28,38 +28,12 @@ object GooseGame extends App {
 
   }
 
-
   def isStarted: Boolean = {
     if (scala.io.StdIn.readLine() != " ") {
       println("Hint: for start a game - press Space bar and Enter")
       isStarted
     } else {
       true
-    }
-  }
-
-  // Игорь
-  // returns two registered users in the end, until then side-effects with printlns
-  def register: (String, String) = {
-    println("Enter first player name:")
-    val user1 = scala.io.StdIn.readLine()
-
-    checkUsers(user1, registerSecondUser)
-  }
-
-  //retrieve second username
-  def registerSecondUser = {
-    println("Enter second player name:")
-    scala.io.StdIn.readLine()
-  }
-
-  //check player names for unique and if the identical - retrieve new username for second Player
-  def checkUsers(user1: String, user2: String): (String, String) = {
-    if (user2.equals(user1)) {
-      println(s"User $user2 already in game")
-      checkUsers(user1, registerSecondUser)
-    } else {
-      (user1, user2)
     }
   }
 
