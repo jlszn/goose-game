@@ -16,6 +16,7 @@ object GooseGame /* extends App*/ {
   // provide a way to change names
   // tests
   // randomize who would be the first to roll
+  // support from 2 to 6 players
 
   // validate with Eithers?
 
@@ -90,8 +91,12 @@ object GooseGame /* extends App*/ {
   // add bouncing
   def move(user: String, diceSum: Int, currentPosition: Int): (String, Int) = {
 
+
     def message(position: String): String =
       s"$user moves from ${if (currentPosition == 0) "Start" else currentPosition} to $position"
+
+    def bouncesMessage(position: Int): String =
+      message("63") + s". $user bounces! $user returns to ${63 - (position - 63)}"
 
     def gooseMessage(position: Int): String =
       message(s"$position, The Goose. $user moves again and goes to ${position + diceSum}")
@@ -100,7 +105,8 @@ object GooseGame /* extends App*/ {
       gooseMessage(position) + s", The Goose. $user moves again and goes to ${position + diceSum + diceSum}."
 
     diceSum + currentPosition match {
-      case a if a > 63 => (message("63") + s"$user Wins!!", 63)
+      case a if a > 63 => (bouncesMessage(a), a - 63)
+      case 63 => (message("63") + s"$user Wins!!", 63)
       case 6 => (message(s"The Bridge. $user jumps to 12"), 12)
       case a if geese.contains(a) && geese.contains(a + diceSum) => (doubleGoose(a), a + diceSum)
       case a if geese.contains(a) => (gooseMessage(a + diceSum), a + diceSum)
@@ -115,6 +121,6 @@ object GooseGame /* extends App*/ {
 object Test extends App {
 
   //  println(GooseGame.play(("John", "Mary")))
-  println(GooseGame.move("Mary", 4, 1)._1)
+  println(GooseGame.move("Mary", 5, 62)._1)
 
 }
