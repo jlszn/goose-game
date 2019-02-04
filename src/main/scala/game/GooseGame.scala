@@ -1,19 +1,23 @@
 package game
 
+import game.utils.Rules._
 import game.utils.{CommandsProcessor, RandomUtil}
-import utils.Rules._
 
 object GooseGame extends App {
 
   def start(): Unit = {
 
-    println("Welcome to the Game og the Goose!")
-    println("Type 'about' to see the game rules\n" +
-      "Type 'play' to start users registration.")
+    println("Welcome to the Game of the Goose!")
+    println(
+      "Type 'about' to see the game rules\n" +
+        "Type 'play' to start users registration."
+    )
 
     CommandsProcessor.initialCommandsProcessing()
   }
 
+  // add checking if name exists
+  // add checking if input is ok
   def roll(turnOf: String): (Int, Int) = {
     val input = scala.io.StdIn.readLine()
 
@@ -27,7 +31,6 @@ object GooseGame extends App {
     }
   }
 
-  // move to Utils Seq, 63, so on...
   // returns message and new order of users
   def move(user: String, diceSum: Int, users: Users): (String, Users) = {
 
@@ -79,7 +82,7 @@ object GooseGame extends App {
     }
   }
 
-  // before each round output, where everyone is standing
+  // before each round, output where everyone is standing
 
   def play(users: Users): Unit = {
 
