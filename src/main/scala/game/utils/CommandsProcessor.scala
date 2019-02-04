@@ -25,21 +25,13 @@ object CommandsProcessor {
     """.stripMargin
 
   /**
-<<<<<<< HEAD:src/main/scala/CommandsProcessor.scala
-    * This method is used for iterating a map. It takes an index of current user, adds 1 to it and divides by a size using mod.
-    * @param users Current Users
-    * @param current Current User
-    * @return Next User
-    */
-=======
-   * This method is used for iterating over a map. It takes an index of current user,
-   * adds 1 to it and divides by a size using mod.
+   * This method is used for iterating a map. It takes an index of current user, adds 1 to it and divides by a size using mod.
    *
-   * @param users current users
+   * @param users   current users
    * @param current current user
-   * @return
+   * @return next user
    */
->>>>>>> origin/game-control:src/main/scala/game/utils/CommandsProcessor.scala
+
   def nextUser(users: Users, current: String): String = {
     users.keysIterator.toList(users.keysIterator.indexOf(current) + 1 % users.size)
   }
