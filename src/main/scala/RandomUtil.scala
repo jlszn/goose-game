@@ -9,4 +9,6 @@ object RandomUtil {
 
   def roll(): (Int, Int) = (random.nextInt(END) + START, random.nextInt(END) + START)
 
+//  def selectFirst(users: Seq[String]): String = users(random.nextInt(users.length))
+
 }
