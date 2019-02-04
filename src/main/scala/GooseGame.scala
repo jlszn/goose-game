@@ -7,6 +7,7 @@ object GooseGame /* extends App*/ {
   // check if moving input is correct, else give a hint: "To move a player type "Move name""
   // check if "move $name" is a registered name
   // check if it's the turn of the user from the input, else give user a hint
+  // add comments
 
   // additional features if we still have time tomorrow:
 
@@ -86,23 +87,25 @@ object GooseGame /* extends App*/ {
 
   val geese: Seq[Int] = Seq(5, 9, 14, 18, 23, 27)
 
-  def message(user: String, currentPosition: Int, newPosition: String): String =
-    s"$user moves from $currentPosition to $newPosition"
+  // add bouncing
+  def move(user: String, diceSum: Int, currentPosition: Int): (String, Int) = {
 
-  // here 0 as Start
-  def move(user: String, diceSum: Int, currentPosition: Int): (String, Int) = diceSum + currentPosition match {
+    def message(position: String): String =
+      s"$user moves from ${if (currentPosition == 0) "Start" else currentPosition} to $position"
 
-    case a if a > 63 => (message(user, currentPosition, "63") + "user Wins!!", 63)
+    def gooseMessage(position: Int): String =
+      message(s"$position, The Goose. $user moves again and goes to ${position + diceSum}")
 
-    case 6 => (message(user, currentPosition, "The Bridge") + s"$user jumps to 12", 12)
+    def doubleGoose(position: Int): String =
+      gooseMessage(position) + s", The Goose. $user moves again and goes to ${position + diceSum + diceSum}."
 
-    case a if geese.contains(a) && geese.contains(a + diceSum) =>
-      (message(user, currentPosition, "The Goose") + s"$user moves again and goes to ${a + diceSum}", a + diceSum)
-
-    case a if geese.contains(a) =>
-      (s"$user moves from $currentPosition to The Goose. $user moves again and goes to ${a + diceSum}", a + diceSum)
-
-    case newPosition => (message(user, currentPosition, newPosition.toString), newPosition)
+    diceSum + currentPosition match {
+      case a if a > 63 => (message("63") + s"$user Wins!!", 63)
+      case 6 => (message(s"The Bridge. $user jumps to 12"), 12)
+      case a if geese.contains(a) && geese.contains(a + diceSum) => (doubleGoose(a), a + diceSum)
+      case a if geese.contains(a) => (gooseMessage(a + diceSum), a + diceSum)
+      case a => (message(s"$a"), a)
+    }
   }
 
   //start()
@@ -111,6 +114,7 @@ object GooseGame /* extends App*/ {
 
 object Test extends App {
 
-  println(GooseGame.play(("John", "Mary")))
+  //  println(GooseGame.play(("John", "Mary")))
+  println(GooseGame.move("Mary", 4, 1)._1)
 
 }
