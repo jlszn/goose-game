@@ -2,6 +2,8 @@ object GooseGame extends App {
 
   type Users = Map[String, Int]
 
+  private val END = 63
+
   // (un)expected behaviour to handle:
 
   // check if name doesn't yet exist
@@ -39,12 +41,12 @@ object GooseGame extends App {
   }
 
   // returns values from both dice
-  def roll(turnOf: String, users: Users): (Int, Int) = {
+  def roll(turnOf: String): (Int, Int) = {
     val input = scala.io.StdIn.readLine()
 
-    if (input == s"$turnOf roll") (6, 6) else {
-      println("Wrong directive")
-      roll(turnOf, users)
+    if (input == s"move $turnOf") RandomUtil.roll() else {
+      println ("Wrong user")
+      roll(turnOf)
     }
   }
 
