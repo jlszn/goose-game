@@ -17,7 +17,7 @@ object GooseGame extends App {
 
       if (isStarted) {
         println("Let's start!")
-        //play(users)
+        play(users)
       }
 
     } else {
@@ -45,12 +45,6 @@ object GooseGame extends App {
     println("Type 'about' to see the game rules, or 'play' to start users registration.")
 
     initialCommandsProcessing()
-
-    val users: Users = PlayerRegistrationUtil.register
-
-    println("Let's start!")
-
-    play(users)
   }
 
   // returns values from both dice
