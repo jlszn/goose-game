@@ -1,10 +1,8 @@
 package game
 
-import utils.{CommandsProcessor, RandomUtil}
+import game.utils.{CommandsProcessor, RandomUtil}
 
 object GooseGame extends App {
-
-  type Users = Map[String, Int]
 
   def start(): Unit = {
 
