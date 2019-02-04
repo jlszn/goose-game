@@ -52,9 +52,7 @@ object CommandsProcessor {
         println("Command not found.")
         println("Type 'about' to see the game rules, or skip to start users registration.")
         initialCommandsProcessing()
-
     }
-
   }
 
   //check start button pressed
