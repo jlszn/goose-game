@@ -1,3 +1,5 @@
+import GooseGame.initialCommandsProcessing
+
 object GooseGame extends App {
 
   type Users = Map[String, Int]
@@ -25,12 +27,51 @@ object GooseGame extends App {
   def randomizeFirst(users: Users): String = "Mary"
 
   // returns registered users
-  def register: Users = Map("John" -> 0, "Mary" -> 0)
+  //def register: Users = Map("John" -> 0, "Mary" -> 0)
+
+  def initialCommandsProcessing(): Unit = {
+    val initialInput = scala.io.StdIn.readLine()
+
+    if (initialInput.equals("about")) {
+
+      RulesOutput.showRules()
+      initialCommandsProcessing()
+
+    } else if (initialInput.equals("play")) {
+
+      val users: Map[String, Int] = PlayerRegistrationUtil.register
+      println("Push Space bar and Enter to start")
+
+      if (isStarted) {
+        println("Let's start!")
+        //play(users)
+      }
+
+    } else {
+      println("Command not found.")
+      println("Type 'about' to see the game rules, or skip to start users registration.")
+      initialCommandsProcessing()
+    }
+  }
+
+  //check start button pressed
+  def isStarted: Boolean = {
+    val startInput = scala.io.StdIn.readLine()
+
+    if (startInput != " ") {
+      println("Hint: for start a game - press Space bar and Enter")
+      isStarted
+    } else {
+      true
+    }
+  }
 
   def start(): Unit = {
 
     println("Welcome to Goose Game!")
+    println("Type 'about' to see the game rules, or 'play' to start users registration.")
 
+    initialCommandsProcessing()
     val users: Users = register
 
     println("Let's start!")
