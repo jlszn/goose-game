@@ -24,24 +24,15 @@ object CommandsProcessor {
       |   2. The Goose(5, 9, 14, 18, 23, 27). When you reach it, you will move again on the same step.
     """.stripMargin
 
+
   /**
-<<<<<<< HEAD:src/main/scala/CommandsProcessor.scala
     * This method is used for iterating a map. It takes an index of current user, adds 1 to it and divides by a size using mod.
     * @param users Current Users
     * @param current Current User
     * @return Next User
     */
-=======
-   * This method is used for iterating over a map. It takes an index of current user,
-   * adds 1 to it and divides by a size using mod.
-   *
-   * @param users current users
-   * @param current current user
-   * @return
-   */
->>>>>>> origin/game-control:src/main/scala/game/utils/CommandsProcessor.scala
   def nextUser(users: Users, current: String): String = {
-    users.keysIterator.toList(users.keysIterator.indexOf(current) + 1 % users.size)
+    users.keysIterator.toList((users.keysIterator.indexOf(current) + 1) % users.size)
   }
 
   def initialCommandsProcessing(): Unit = {

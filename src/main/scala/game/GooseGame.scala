@@ -42,7 +42,7 @@ object GooseGame extends App {
       s"$user moves from $zero to $position"
 
     def bouncesMessage(position: Int): String =
-      message(s"$END") + s".\n$user bounces! $user returns to ${END - (position - END)}"
+      message(s"$END") + s".\n$user bounces! $user returns to ${2 * END - position}"
 
     def gooseM(position: Int): String =
       s", The Goose.\n$user moves again and goes to ${position + diceSum}"
@@ -70,7 +70,7 @@ object GooseGame extends App {
       }
 
     diceSum + currentPosition match {
-      case a if a > END => (bouncesMessage(a), users + (user -> (a - END)))
+      case a if a > END => (bouncesMessage(a), users + (user -> (2 * END - a)))
       case END => (message(s"$END") + s".\n$user Wins!!", users + (user -> END))
       case BRIDGE_START => prankOrMove(BRIDGE_END, message(s"The Bridge.\n$user jumps to $BRIDGE_END."))
       case a if GEESE.contains(a) && GEESE.contains(a + diceSum) => prankOrMove(a + diceSum, doubleGoose(a), diceSum)
