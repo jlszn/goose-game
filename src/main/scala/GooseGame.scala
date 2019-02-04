@@ -47,7 +47,7 @@ object GooseGame extends App {
       println(s"$turnOf rolled dice: " + dice._1 + ", " + dice._2)
       dice
     } else {
-      println ("Wrong user")
+      println("Wrong user")
       roll(turnOf)
     }
   }
@@ -122,7 +122,7 @@ object GooseGame extends App {
           moved._2
         }
 
-        val nextUser: String = if (turnOf == "Mary") "John" else "Mary"
+        val nextUser: String = CommandUtil.nextUser(users, turnOf)
 
         playRound(nextUser, movedUsers)
       }
