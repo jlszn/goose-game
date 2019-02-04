@@ -1,4 +1,8 @@
+
+
 object GooseGame /* extends App*/ {
+
+  type Users = Map[String, Int]
 
   // (un)expected behaviour to handle:
 
@@ -37,7 +41,7 @@ object GooseGame /* extends App*/ {
 
   // Вадим
   // returns values from both dice
-  def roll(turnOf: String, users: (String, String)): (Int, Int) = {
+  def roll(turnOf: String, users: Users): (Int, Int) = {
     val input = scala.io.StdIn.readLine()
 
     if (input == s"$turnOf roll") (6, 6) else {
@@ -53,14 +57,14 @@ object GooseGame /* extends App*/ {
     val user1: String = users._1
     val user2: String = users._2
 
-    def playRound(turnOf: String, position1: Int = 0, position2: Int = 0): Unit =
-      if (position1 != 63 && position2 != 63) {
-
+    def playRound(turnOf: String, users: Users): Unit =
+      if (users.exists(_._2 == 63)) println("Game over")
+      else {
         val dice: (Int, Int) = roll(turnOf, users)
 
-        def moveThis(oldPosition: Int): (String, Int) = move(turnOf, dice._1 + dice._2, oldPosition)
+        //        def moveThis(oldPosition: Int): (String, Users) = move(turnOf, dice._1 + dice._2, oldPosition, Map())
 
-        def newPosition(oldPosition: Int): Int = {
+        /*  def newPosition(oldPosition: Int): Users = {
           val moved = moveThis(oldPosition)
           println(moved._1)
           moved._2
@@ -69,15 +73,17 @@ object GooseGame /* extends App*/ {
         val isTurnOfUser1 = turnOf == user1
 
         val nextUser: String = if (isTurnOfUser1) user2 else user1
-        val updatePosition: Int = if (isTurnOfUser1) newPosition(position1) else newPosition(position2)
+        val updatePosition: Users = if (isTurnOfUser1) newPosition(position1) else newPosition(position2)
 
         if (isTurnOfUser1) playRound(nextUser, updatePosition, position2)
         else playRound(nextUser, position1, updatePosition)
 
       }
-      else println("Game over")
 
-    playRound(user1)
+    else
+
+    playRound(user1)*/
+      }
   }
 
   // returns new position and message
@@ -88,29 +94,52 @@ object GooseGame /* extends App*/ {
 
   val geese: Seq[Int] = Seq(5, 9, 14, 18, 23, 27)
 
-  // add bouncing
-  def move(user: String, diceSum: Int, currentPosition: Int): (String, Int) = {
 
+  def move(user: String, diceSum: Int, users: Users): (String, Users) = {
 
+    // handle emptiness
+    // switch to .fold
+    val currentPosition: Int = users(user)
+
+    // messages
     def message(position: String): String =
-      s"$user moves from ${if (currentPosition == 0) "Start" else currentPosition} to $position"
+      s"$user moves from ${if (currentPosition == 0) "Start" else currentPosition} to $position.\n"
 
     def bouncesMessage(position: Int): String =
       message("63") + s". $user bounces! $user returns to ${63 - (position - 63)}"
 
+    def gooseM(position: Int): String =
+      s", The Goose.\n$user moves again and goes to ${position + diceSum}"
+
     def gooseMessage(position: Int): String =
-      message(s"$position, The Goose. $user moves again and goes to ${position + diceSum}")
+      message(s"$position" + gooseM(position))
 
     def doubleGoose(position: Int): String =
-      gooseMessage(position) + s", The Goose. $user moves again and goes to ${position + diceSum + diceSum}."
+      gooseMessage(position) + gooseM(position + diceSum)
+
+    def prankMessage(user: (String, Int), addition: Option[String] = None): String = addition match {
+      case Some(a) => a + s"On ${user._2} there is ${user._1}, who returns to $currentPosition."
+      case _ => s"On ${user._2} there is ${user._1}, who returns to $currentPosition"
+    }
+
+    def prankMove(message: String, pair: (String, Int)): (String, Users) = {
+      val newUsers = users + (pair._1 -> currentPosition) + (user -> pair._2)
+      (prankMessage(pair, Some(message)), newUsers)
+    }
+
+    def prankOrMove(position: Int, message: String, bonus: Int = 0): (String, Users) =
+      users.find(_._2 == position + bonus) match {
+        case Some(pair) => prankMove(message, pair)
+        case _ => (message, users + (user -> (position + bonus)))
+      }
 
     diceSum + currentPosition match {
-      case a if a > 63 => (bouncesMessage(a), a - 63)
-      case 63 => (message("63") + s"$user Wins!!", 63)
-      case 6 => (message(s"The Bridge. $user jumps to 12"), 12)
-      case a if geese.contains(a) && geese.contains(a + diceSum) => (doubleGoose(a), a + diceSum)
-      case a if geese.contains(a) => (gooseMessage(a + diceSum), a + diceSum)
-      case a => (message(s"$a"), a)
+      case a if a > 63 => (bouncesMessage(a), users + (user -> (a - 63)))
+      case 63 => (message("63") + s"$user Wins!!", users + (user -> 63))
+      case 6 => prankOrMove(12, message(s"The Bridge. $user jumps to 12.\n"))
+      case a if geese.contains(a) && geese.contains(a + diceSum) => prankOrMove(a + diceSum, doubleGoose(a), diceSum)
+      case a if geese.contains(a) => prankOrMove(a, gooseMessage(a), diceSum)
+      case a => prankOrMove(a, message(s"$a"))
     }
   }
 
@@ -120,7 +149,11 @@ object GooseGame /* extends App*/ {
 
 object Test extends App {
 
-  //  println(GooseGame.play(("John", "Mary")))
-  println(GooseGame.move("Mary", 5, 62)._1)
+  val users = Map("Mary" -> 11, "John" -> 17)
+
+  println()
+  println(GooseGame.move("Mary", 3, users)._1)
+  println()
+  println(GooseGame.move("Mary", 3, users)._2)
 
 }
