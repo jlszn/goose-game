@@ -2,8 +2,6 @@ object GooseGame extends App {
 
   type Users = Map[String, Int]
 
-  private val END = 63
-
   // (un)expected behaviour to handle:
 
   // check if name doesn't yet exist
