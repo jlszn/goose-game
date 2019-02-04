@@ -8,16 +8,17 @@ object PlayerRegistrationUtil {
   }
 
   def retrieveCount: Int = {
-    println("Enter number of players: ")
+    println("Enter number of players (from 2 to 6): ")
 
     val count = scala.io.StdIn.readLine()
-    if (count.matches("[2-9]*")) {
+    if (count.matches("[2-6]")) {
       count.toInt
     } else {
-      println("Wrong input! Try again.")
+      println("Wrong input or wrong players count! Try again.")
       retrieveCount
     }
   }
+
 
   //add new players
   def regUsers(usersCount: Int, users: Users): Users = {
