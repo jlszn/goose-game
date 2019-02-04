@@ -11,10 +11,11 @@ object GooseGame extends App {
   // additional features if we still have time tomorrow
   // provide a way to finish the game anytime - ask if the user wants to restart or just quit the app
   // provide a game description/rules on "about" input
-  def start() = {
+  def start(): Unit = {
 
     println("Welcome to Goose Game!")
 
+    //retrieve registered users for start a game
     val users: (String, String) = PlayerRegistrationUtil.register
 
     println("Push Space bar and Enter to start")
@@ -24,8 +25,11 @@ object GooseGame extends App {
     }
   }
 
+  //check start button pressed
   def isStarted: Boolean = {
-    if (scala.io.StdIn.readLine() != " ") {
+    val startInput = scala.io.StdIn.readLine()
+
+    if (startInput != " ") {
       println("Hint: for start a game - press Space bar and Enter")
       isStarted
     } else {
