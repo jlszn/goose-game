@@ -1,5 +1,7 @@
 object CommandUtil {
 
+  import GooseGame.Users
+
   val about: String =
     """
       |It's an Scala implementation of "The Goose Game Kata" (https://en.wikipedia.org/wiki/Game_of_the_Goose)
@@ -17,8 +19,14 @@ object CommandUtil {
       |   2. The Goose(5, 9, 14, 18, 23, 27). When you reach it, you will move again on the same step.
     """.stripMargin
 
-  def nextUser(users: Map[String, Int], current: String): String = users.keysIterator.toList(users.keysIterator.indexOf(current) + 1 % users.size)
+  def nextUser(users: Users, current: String): String = users.keysIterator.toList((users.keysIterator.indexOf(current) + 1 ) % users.size)
 
+//  def validate(command: String): Either[String, (Int, Int)] = {
+//
+//  }
 
+  def renameUser(users: Users): Users = {
+
+  }
 
 }
