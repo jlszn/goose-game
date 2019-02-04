@@ -15,13 +15,13 @@ object GooseGame extends App {
 
     println("Welcome to Goose Game!")
 
-    //retrieve registered users for start a game
-    val users: (String, String) = PlayerRegistrationUtil.register
+//    retrieve registered users for start a game
+    val users: Map[String, Int] = PlayerRegistrationUtil.register
 
     println("Push Space bar and Enter to start")
     if (isStarted) {
       println("Let's start!")
-      play(users)
+//      play(users)
     }
   }
 

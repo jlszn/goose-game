@@ -1,30 +1,51 @@
-object PlayerRegistrationUtil {
+object PlayerRegistrationUtil extends App {
 
-  // returns two registered users in the end, until then side-effects with printlns
-  def register: (String, String) = {
-    println("Enter first player name:")
-    val user1 = scala.io.StdIn.readLine()
-
-    println(s"$user1 joined!")
-    checkUsers(user1, registerSecondUser)
+  // returns registered users in the end, until then side-effects with printlns
+  def register: Map[String, Int] = {
+    regUsers(retrieveCount, Map())
   }
 
-  //retrieve second username
-  def registerSecondUser: String = {
-    println("Enter second player name:")
-    scala.io.StdIn.readLine()
-  }
+  def retrieveCount: Int = {
+    println("Enter number of players: ")
+    val count = scala.io.StdIn.readLine()
 
-  //check player names for unique and if the identical - retrieve new username for second Player
-  def checkUsers(user1: String, user2: String): (String, String) = {
-
-    //if user1 name equals to user2 name - requesting user2 name again
-    if (user2.equals(user1)) {
-      println(s"User $user2 already in game")
-      checkUsers(user1, registerSecondUser)
+    if (count.matches("[0-9]*")) {
+      count.toInt
     } else {
-      println(s"$user2 joined!")
-      (user1, user2)
+      println("Wrong input! Try again.")
+      retrieveCount
     }
   }
+
+  //add new players
+  def regUsers(usersCount: Int, users: Map[String, Int]): Map[String, Int] = {
+    if (usersCount == 0) {
+      users
+    } else {
+      regUsers(usersCount - 1, users ++ registerUser(users))
+    }
+  }
+
+  //retrieve name for new player
+  def registerUser(users: Map[String, Int]): Map[String, Int] = {
+    println("Enter player name: ")
+    val newUser = scala.io.StdIn.readLine()
+
+    checkUsers(users, newUser)
+  }
+
+  //check player names for unique and if the identical - retrieve new username for Player
+  def checkUsers(currentUsers: Map[String, Int], newUser: String): Map[String, Int] = {
+
+    //if newName equals to some player in Map - requesting username again
+    if (currentUsers.contains(newUser)) {
+      println(s"User $newUser already in game!")
+      registerUser(currentUsers)
+    } else {
+      println(s"$newUser joined!")
+      Map(newUser -> 0)
+    }
+  }
+
+  register
 }
