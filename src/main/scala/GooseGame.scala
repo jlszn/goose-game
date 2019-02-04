@@ -1,6 +1,4 @@
-
-
-object GooseGame /* extends App*/ {
+object GooseGame extends App {
 
   type Users = Map[String, Int]
 
@@ -24,22 +22,22 @@ object GooseGame /* extends App*/ {
 
   // validate with Eithers?
 
-  // Игорь
-  // returns two registered users in the end, until then side-effects with printlns
-  def register: (String, String) = ("", "")
+  def randomizeFirst(users: Users): String = "Mary"
+
+  // returns registered users
+  def register: Users = Map("John" -> 0, "Mary" -> 0)
 
   def start(): Unit = {
 
     println("Welcome to Goose Game!")
 
-    val users: (String, String) = register
+    val users: Users = register
 
     println("Let's start!")
 
-    //play(users)
+    play(users)
   }
 
-  // Вадим
   // returns values from both dice
   def roll(turnOf: String, users: Users): (Int, Int) = {
     val input = scala.io.StdIn.readLine()
@@ -50,48 +48,11 @@ object GooseGame /* extends App*/ {
     }
   }
 
-  /*def play(users: (String, String), positions: (Int, Int) = (0, 0)): Unit = {
-
-    val user1: String = users._1
-    val user2: String = users._2
-
-    def playRound(turnOf: String, users: Users): Unit =
-      if (users.exists(_._2 == 63)) println("Game over")
-      else {
-        val dice: (Int, Int) = roll(turnOf, users)
-
-        def moveThis(oldPosition: Int): (String, Users) = move(turnOf, dice._1 + dice._2, oldPosition, Map())
-
-        def newPosition(oldPosition: Int): Users = {
-          val moved = moveThis(oldPosition)
-          println(moved._1)
-          moved._2
-        }
-
-        val isTurnOfUser1 = turnOf == user1
-
-        val nextUser: String = if (isTurnOfUser1) user2 else user1
-        val updatePosition: Users = if (isTurnOfUser1) newPosition(position1) else newPosition(position2)
-
-        if (isTurnOfUser1) playRound(nextUser, updatePosition, position2)
-        else playRound(nextUser, position1, updatePosition)
-
-      }
-
-    else playRound(user1)
-  }*/
-
-
-  // returns new position and message
-  // $user moves from $currentPosition to $newPosition"
-  // The Goose message
-  // The Bridge message
-  // etc
-
-  val geese: Seq[Int] = Seq(5, 9, 14, 18, 23, 27)
-
-
+  // returns message and new order of users
   def move(user: String, diceSum: Int, users: Users): (String, Users) = {
+
+    // move to rules (?)
+    val geese: Seq[Int] = Seq(5, 9, 14, 18, 23, 27)
 
     // handle emptiness
     // switch to .fold
@@ -141,17 +102,29 @@ object GooseGame /* extends App*/ {
     }
   }
 
-  //start()
+  def play(users: Users): Unit = {
 
-}
+    def playRound(turnOf: String, users: Users): Unit =
+      if (users.exists(_._2 == 63)) println("Game over")
+      else {
+        val dice: (Int, Int) = roll(turnOf, users)
 
-object Test extends App {
+        def moveThis: (String, Users) = move(turnOf, dice._1 + dice._2, users)
 
-  val users = Map("Mary" -> 0, "John" -> 3)
+        def movedUsers: Users = {
+          val moved = moveThis
+          println(moved._1)
+          moved._2
+        }
 
-  println()
-  println(GooseGame.move("Mary", 3, users)._1)
-  println()
-  println(GooseGame.move("Mary", 3, users)._2)
+        val nextUser: String = if (turnOf == "Mary") "John" else "Mary"
+
+        playRound(nextUser, movedUsers)
+      }
+
+    playRound(randomizeFirst(users), users)
+  }
+
+  start()
 
 }
