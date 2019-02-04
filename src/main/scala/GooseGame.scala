@@ -44,7 +44,11 @@ object GooseGame extends App {
   def roll(turnOf: String): (Int, Int) = {
     val input = scala.io.StdIn.readLine()
 
-    if (input == s"move $turnOf") RandomUtil.roll() else {
+    if (input == s"move $turnOf") {
+      val dice = RandomUtil.roll()
+      println(s"$turnOf rolled dice: " + dice._1 + ", " + dice._2)
+      dice
+    } else {
       println ("Wrong user")
       roll(turnOf)
     }
@@ -64,10 +68,10 @@ object GooseGame extends App {
 
     // messages
     def message(position: String): String =
-      s"$user moves from $zero to $position.\n"
+      s"$user moves from $zero to $position"
 
     def bouncesMessage(position: Int): String =
-      message("63") + s". $user bounces! $user returns to ${63 - (position - 63)}"
+      message("63") + s".\n$user bounces! $user returns to ${63 - (position - 63)}"
 
     def gooseM(position: Int): String =
       s", The Goose.\n$user moves again and goes to ${position + diceSum}"
@@ -79,8 +83,8 @@ object GooseGame extends App {
       gooseMessage(position) + gooseM(position + diceSum)
 
     def prankMessage(user: (String, Int), addition: Option[String] = None): String = addition match {
-      case Some(a) => a + s"On ${user._2} there is ${user._1}, who returns to $zero."
-      case _ => s"On ${user._2} there is ${user._1}, who returns to $currentPosition"
+      case Some(a) => a + s".\nOn ${user._2} there is ${user._1}, who returns to $zero."
+      case _ => s".\nOn ${user._2} there is ${user._1}, who returns to $currentPosition"
     }
 
     def prankMove(message: String, pair: (String, Int)): (String, Users) = {
@@ -96,8 +100,8 @@ object GooseGame extends App {
 
     diceSum + currentPosition match {
       case a if a > 63 => (bouncesMessage(a), users + (user -> (a - 63)))
-      case 63 => (message("63") + s"$user Wins!!", users + (user -> 63))
-      case 6 => prankOrMove(12, message(s"The Bridge. $user jumps to 12.\n"))
+      case 63 => (message("63") + s".\n$user Wins!!", users + (user -> 63))
+      case 6 => prankOrMove(12, message(s"The Bridge.\n$user jumps to 12."))
       case a if geese.contains(a) && geese.contains(a + diceSum) => prankOrMove(a + diceSum, doubleGoose(a), diceSum)
       case a if geese.contains(a) => prankOrMove(a, gooseMessage(a), diceSum)
       case a => prankOrMove(a, message(s"$a"))
@@ -109,7 +113,7 @@ object GooseGame extends App {
     def playRound(turnOf: String, users: Users): Unit =
       if (users.exists(_._2 == 63)) println("Game over")
       else {
-        val dice: (Int, Int) = roll(turnOf, users)
+        val dice: (Int, Int) = roll(turnOf)
 
         def moveThis: (String, Users) = move(turnOf, dice._1 + dice._2, users)
 
