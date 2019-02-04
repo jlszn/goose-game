@@ -25,7 +25,7 @@ object GooseGame extends App {
 
   // Вадим
   // returns values from both dice
-  def roll: (Int, Int) = ???
+  def roll: (Int, Int) = RandomUtil.roll()
 
   def play(users: (String, String), positions: (Int, Int) = (0, 0)): Unit = {
 
