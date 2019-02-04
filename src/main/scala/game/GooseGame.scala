@@ -16,6 +16,8 @@ object GooseGame extends App {
     CommandsProcessor.initialCommandsProcessing()
   }
 
+  // add checking if name exists
+  // add checking if input is ok
   def roll(turnOf: String): (Int, Int) = {
     val input = scala.io.StdIn.readLine()
 
