@@ -1,3 +1,5 @@
+import GooseGame.Users
+
 object CommandUtil {
 
   import GooseGame.Users
@@ -21,11 +23,9 @@ object CommandUtil {
 
   def nextUser(users: Users, current: String): String = users.keysIterator.toList((users.keysIterator.indexOf(current) + 1 ) % users.size)
 
-//  def validate(command: String): Either[String, (Int, Int)] = {
-//
-//  }
-
   def renameUser(users: Users): Users = {
+
+    val oldUser = scala.io.StdIn.readLine()
 
   }
 

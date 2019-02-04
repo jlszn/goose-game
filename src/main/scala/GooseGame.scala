@@ -2,40 +2,50 @@ object GooseGame extends App {
 
   type Users = Map[String, Int]
 
-  // (un)expected behaviour to handle:
+  def initialCommandsProcessing(): Unit = {
+    val initialInput = scala.io.StdIn.readLine()
 
-  // check if name doesn't yet exist
-  // after two users are registered do not accept any more of them. If input is any other than Space, give user a hint
-  // check if moving input is correct, else give a hint: "To move a player type "Move name""
-  // check if "move $name" is a registered name
-  // check if it's the turn of the user from the input, else give user a hint
-  // add comments
+    if (initialInput.equals("about")) {
 
-  // additional features if we still have time tomorrow:
+      RulesOutput.showRules()
+      initialCommandsProcessing()
 
-  // provide a way to finish the game anytime - ask if the user wants to restart or just quit the app
-  // provide a game description/rules on "about" input
-  // provide a way to change names
-  // tests
-  // randomize who would be the first to roll
-  // support from 2 to 6 players
+    } else if (initialInput.equals("play")) {
 
-  // validate with Eithers?
+      val users: Users = PlayerRegistrationUtil.register
+      println("Push Space bar and Enter to start")
 
-  def randomizeFirst(users: Users): String = "Mary"
+      if (isStarted) {
+        println("Let's start!\n")
+        play(users)
+      }
 
-  // returns registered users
-  def register: Users = Map("John" -> 0, "Mary" -> 0)
+    } else {
+      println("Command not found.")
+      println("Type 'about' to see the game rules, or skip to start users registration.")
+      initialCommandsProcessing()
+    }
+  }
+
+  //check start button pressed
+  def isStarted: Boolean = {
+    val startInput = scala.io.StdIn.readLine()
+
+    if (startInput != " ") {
+      println("Hint: to start a game - press Space bar and Enter")
+      isStarted
+    } else {
+      true
+    }
+  }
 
   def start(): Unit = {
 
     println("Welcome to Goose Game!")
+    println("Type 'about' to see the game rules\n" +
+      "Type 'play' to start users registration.")
 
-    val users: Users = register
-
-    println("Let's start!")
-
-    play(users)
+    initialCommandsProcessing()
   }
 
   // returns values from both dice
@@ -47,7 +57,7 @@ object GooseGame extends App {
       println(s"$turnOf rolled dice: " + dice._1 + ", " + dice._2)
       dice
     } else {
-      println ("Wrong user")
+      println("Wrong user")
       roll(turnOf)
     }
   }
@@ -107,6 +117,8 @@ object GooseGame extends App {
     }
   }
 
+  // before each round output, where everyone is standing
+
   def play(users: Users): Unit = {
 
     def playRound(turnOf: String, users: Users): Unit =
@@ -122,12 +134,12 @@ object GooseGame extends App {
           moved._2
         }
 
-        val nextUser: String = if (turnOf == "Mary") "John" else "Mary"
+        val nextUser: String = CommandUtil.nextUser(users, turnOf)
 
         playRound(nextUser, movedUsers)
       }
 
-    playRound(randomizeFirst(users), users)
+    playRound(RandomUtil.selectFirst(users), users)
   }
 
   start()
