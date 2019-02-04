@@ -7,7 +7,8 @@ object GooseGame extends App {
 
     if (initialInput.equals("about")) {
 
-      RulesOutput.showRules()
+      println(CommandUtil.showRules)
+
       initialCommandsProcessing()
 
     } else if (initialInput.equals("play")) {
@@ -48,7 +49,6 @@ object GooseGame extends App {
     initialCommandsProcessing()
   }
 
-  // returns values from both dice
   def roll(turnOf: String): (Int, Int) = {
     val input = scala.io.StdIn.readLine()
 

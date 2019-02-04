@@ -19,6 +19,15 @@ object CommandUtil {
       |   2. The Goose(5, 9, 14, 18, 23, 27). When you reach it, you will move again on the same step.
     """.stripMargin
 
+  val showRules: String = {
+    """
+      |GAME RULES:
+      |Before starting game you need to register users for playing.
+      |For start registration process - put 'play' to console.
+      |Then - you need to set number of players and names for players.
+    """.stripMargin
+  }
+
   def nextUser(users: Users, current: String): String = {
     users.keysIterator.toList(users.keysIterator.indexOf(current) + 1 % users.size)
   }
