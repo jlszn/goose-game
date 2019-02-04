@@ -16,7 +16,7 @@ object GooseGame extends App {
       println("Push Space bar and Enter to start")
 
       if (isStarted) {
-        println("Let's start!")
+        println("Let's start!\n")
         play(users)
       }
 
@@ -32,7 +32,7 @@ object GooseGame extends App {
     val startInput = scala.io.StdIn.readLine()
 
     if (startInput != " ") {
-      println("Hint: for start a game - press Space bar and Enter")
+      println("Hint: to start a game - press Space bar and Enter")
       isStarted
     } else {
       true
@@ -42,7 +42,8 @@ object GooseGame extends App {
   def start(): Unit = {
 
     println("Welcome to Goose Game!")
-    println("Type 'about' to see the game rules, or 'play' to start users registration.")
+    println("Type 'about' to see the game rules\n" +
+      "Type 'play' to start users registration.")
 
     initialCommandsProcessing()
   }
@@ -115,6 +116,8 @@ object GooseGame extends App {
       case a => prankOrMove(a, message(s"$a"))
     }
   }
+
+  // before each round output, where everyone is standing
 
   def play(users: Users): Unit = {
 
