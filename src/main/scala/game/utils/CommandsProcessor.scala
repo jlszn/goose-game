@@ -3,9 +3,10 @@ package game.utils
 import game.{GooseGame, Users}
 
 object CommandsProcessor {
+
   /**
-    * A string used as a description of the project
-    */
+   * A string used as the description of the project
+   */
   val about: String =
     """
       |It's an Scala implementation of "The Goose Game Kata" (https://en.wikipedia.org/wiki/Game_of_the_Goose)
@@ -24,11 +25,13 @@ object CommandsProcessor {
     """.stripMargin
 
   /**
-    * This method is used for iterating a map. It takes an index of current user, adds 1 to it and divides by a size using mod.
-    * @param users Current Users
-    * @param current Current User
-    * @return
-    */
+   * This method is used for iterating over a map. It takes an index of current user,
+   * adds 1 to it and divides by a size using mod.
+   *
+   * @param users   Current Users
+   * @param current Current User
+   * @return
+   */
   def nextUser(users: Users, current: String): String = {
     users.keysIterator.toList(users.keysIterator.indexOf(current) + 1 % users.size)
   }
