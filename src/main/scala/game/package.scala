@@ -8,4 +8,9 @@ package object game {
     */
   type Users = Map[String, Int]
 
+  /**
+    * This type represents a roll
+    */
+  type Roll = (Int, Int)
+
 }

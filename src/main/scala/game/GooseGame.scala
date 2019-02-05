@@ -28,7 +28,7 @@ object GooseGame extends App {
    * @param turnOf Current user
    * @return 2 dice roll for a user
    */
-  def roll(turnOf: String): (Int, Int) = {
+  def roll(turnOf: String): Roll = {
 
     scala.io.StdIn.readLine().trim.split(" ") match {
       case Array("move", user) if user == turnOf =>
@@ -141,10 +141,10 @@ object GooseGame extends App {
 
         println(s"$turnOf make your move!")
 
-        val dice: (Int, Int) = roll(turnOf)
+        val rolled: Roll = roll(turnOf)
 
         val movedUsers: Users = {
-          val moved = move(turnOf, dice._1 + dice._2, users)
+          val moved = move(turnOf, rolled._1 + rolled._2, users)
           println(moved._1)
           moved._2
         }

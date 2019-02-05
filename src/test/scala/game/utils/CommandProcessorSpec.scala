@@ -1,6 +1,6 @@
 package game.utils
 
-import java.io.ByteArrayInputStream
+import java.io.{ByteArrayInputStream, ByteArrayOutputStream, InputStreamReader, StringReader, StringWriter}
 
 import com.sun.xml.internal.messaging.saaj.util.ByteInputStream
 import org.specs2.mutable.Specification
@@ -35,6 +35,18 @@ class CommandProcessorSpec extends Specification {
           CommandProcessor.isStarted must_== true
         }
       }
+
+      "give a hint if input is wrong" >> {
+        val input = new ByteArrayInputStream(("Wrong" + s"${System.lineSeparator()}" + " " + s"${System.lineSeparator()}").getBytes())
+        val output = new ByteArrayOutputStream()
+        Console.withOut(output) {
+          Console.withIn(input) {
+            CommandProcessor.isStarted
+          }
+        }
+        output.toString must beEqualTo("Hint: to start a game - press Space bar and Enter\n")
+      }
+
     }
 
   }
