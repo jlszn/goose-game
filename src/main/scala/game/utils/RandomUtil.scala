@@ -2,7 +2,7 @@ package game.utils
 
 import java.security.SecureRandom
 
-import game.Users
+import game.{Roll, Users}
 
 /**
  * RandomUtil is a util class that contains methods for controlling randomizing processes inside of the application.
@@ -30,7 +30,7 @@ object RandomUtil {
    *
    * @return two dice' values
    */
-  def roll(): (Int, Int) = (random.nextInt(END) + START, random.nextInt(END) + START)
+  def roll(): Roll = (random.nextInt(END) + START, random.nextInt(END) + START)
 
   /**
    * This method selects the first user for the game.

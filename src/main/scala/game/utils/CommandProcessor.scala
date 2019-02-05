@@ -42,7 +42,7 @@ object CommandProcessor {
    * Method for processing initial console commands "about" and "play".
    */
   def initialCommandProcessing(): Unit = {
-    val input = InputMatcher.getInput
+    val input = InputMatcher.getInput.toLowerCase
 
     def printAbout(): Unit = {
       println(about)

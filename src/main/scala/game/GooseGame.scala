@@ -28,8 +28,7 @@ object GooseGame extends App {
    * @param turnOf Current user
    * @return 2 dice roll for a user
    */
-  def roll(turnOf: String /*, users: Users*/): (Int, Int) = {
-    val input = InputMatcher.getInput
+  def roll(turnOf: String): Roll = {
 
     def moveUser(): (Int, Int) = {
       val dice = RandomUtil.roll()
@@ -139,10 +138,10 @@ object GooseGame extends App {
         for ((name, position) <- users) println(s"name: $name, position: $position")
         println(s"\n$turnOf make your move!")
 
-        val dice: (Int, Int) = roll(turnOf)
+        val rolled: Roll = roll(turnOf)
 
         val movedUsers: Users = {
-          val moved = move(turnOf, dice._1 + dice._2, users)
+          val moved = move(turnOf, rolled._1 + rolled._2, users)
           println(moved._1)
           moved._2
         }
