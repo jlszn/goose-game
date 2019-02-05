@@ -26,7 +26,7 @@ object RandomUtil {
   /**
    * This method is used for generating a pair of dice rolls. It uses SecureRandom so a result can be hardly predicted
    *
-   * @return two dices' values
+   * @return two dice' values
    */
   def roll(): (Int, Int) = (random.nextInt(END) + START, random.nextInt(END) + START)
 

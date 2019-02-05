@@ -19,7 +19,7 @@ object CommandsProcessor {
       | 3. Write "move <some-player-name>
       | 4. Repeat until win
       |Rules:
-      | During the game program will throw 2 dices every turn. Values of such dices define your future steps.
+      | During the game program will throw 2 dice every turn. Values of such dice define your future steps.
       | You will win if you reach the 63. But if you collect more than 63, you will be moved back on a difference between 63 and your current amount
       | If you step on a cell where another player is, this player will be sent on your previous position.
       | There are some zone with special abilities:
