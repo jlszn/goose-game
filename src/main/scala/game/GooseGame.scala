@@ -15,8 +15,8 @@ object GooseGame extends App {
 
     println("Welcome to the Game of the Goose!")
     println(
-      "Type 'about' to see the game rules\n" +
-        "Type 'play' to start users registration."
+      "Type \"about\" to see the game rules\n" +
+        "Type \"play\" to start users registration."
     )
 
     CommandProcessor.initialCommandProcessing()
@@ -123,12 +123,11 @@ object GooseGame extends App {
    */
   def play(users: Users): Unit = {
 
-    def playRound(turnOf: String, users: Users): Unit = {
-
-      println("Points - " + users)
-
+    def playRound(turnOf: String, users: Users): Unit =
       if (users.exists(_._2 == END)) println("Game over")
       else {
+        println("Score: ")
+        for ((name, position) <- users) printf("name: %s, position: %s\n", name, position)
 
         println(s"$turnOf make your move!")
 
@@ -145,7 +144,7 @@ object GooseGame extends App {
         playRound(nextUser, movedUsers)
       }
 
-    }
+    println("Hint: to move type \"move player-name\"")
 
     playRound(RandomUtil.selectFirst(users), users)
   }
