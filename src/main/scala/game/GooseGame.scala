@@ -105,15 +105,12 @@ object GooseGame extends App {
     diceSum + currentPosition match {
       case a if a > END => (bouncesMessage(a), users + (user -> (2 * END - a)))
       case END => (message(s"$END") + s".\n$user Wins!!", users + (user -> END))
-      // check bridge
       case BRIDGE_START => prankOrMove(BRIDGE_END, message(s"The Bridge.\n$user jumps to $BRIDGE_END."))
       case a if GEESE.contains(a) && GEESE.contains(a + diceSum) => prankOrMove(a + diceSum, doubleGooseMessage(a), diceSum)
       case a if GEESE.contains(a) => prankOrMove(a, gooseMessage(a), diceSum)
       case a => prankOrMove(a, message(s"$a"))
     }
   }
-
-  // before each round, output where everyone is standing
 
   /**
    * Util method that starts a game.
