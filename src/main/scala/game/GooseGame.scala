@@ -61,7 +61,7 @@ object GooseGame extends App {
 
     def positionName: String = if (currentPosition == 0) "the Start" else s"$currentPosition"
 
-    // basic message
+    // basic movement message
     def message(position: String): String =
       s"$user moves from $positionName to $position"
 
@@ -74,25 +74,27 @@ object GooseGame extends App {
     def gooseMessagePart(position: Int): String =
       s", The Goose.\n$user moves again and goes to ${position + diceSum}"
 
-    // composes a message from a basic movement message and a goose message
+    // compose a message from a basic movement message and a goose message
     def gooseMessage(position: Int): String =
       message(s"$position" + gooseMessagePart(position))
 
-    // composes a message from gooseMessage and another goose message part
+    // compose a message from gooseMessage and another goose message part
     def doubleGooseMessage(position: Int): String =
       gooseMessage(position) + gooseMessagePart(position + diceSum)
 
+    // compose a prank message
     def prankMessage(user: (String, Int), addition: Option[String] = None): String = addition match {
       case Some(a) => a + s".\nOn ${user._2} there is ${user._1}, who returns to $positionName."
       case _ => s".\nOn ${user._2} there is ${user._1}, who returns to $currentPosition"
     }
 
+    // move both players: the knocked out one and the current player
     def prankMove(message: String, pair: (String, Int)): (String, Users) = {
       val newUsers = users + (pair._1 -> currentPosition) + (user -> pair._2)
       (prankMessage(pair, Some(message)), newUsers)
     }
 
-    // see if anyone is standing in the position where current user is supposed to move
+    // check if anyone is standing in the position where current user is supposed to move
     // if someone is - move them back, to where current user was standing and move the current user
     // else just move the current user
     // bonus parameter is used and set when special position, like goose is involved, giving additional move
@@ -102,6 +104,8 @@ object GooseGame extends App {
         case _ => (message, users + (user -> (position + bonus)))
       }
 
+    // match on the position, where user is supposed to land
+    // take according action depending on the position type: goose, bridge, simple point, victory, etc.
     diceSum + currentPosition match {
       case a if a > END => (bouncesMessage(a), users + (user -> (2 * END - a)))
       case END => (message(s"$END") + s".\n$user Wins!!", users + (user -> END))
@@ -130,10 +134,8 @@ object GooseGame extends App {
 
         val dice: (Int, Int) = roll(turnOf)
 
-        def moveThis: (String, Users) = move(turnOf, dice._1 + dice._2, users)
-
-        def movedUsers: Users = {
-          val moved = moveThis
+        val movedUsers: Users = {
+          val moved = move(turnOf, dice._1 + dice._2, users)
           println(moved._1)
           moved._2
         }
