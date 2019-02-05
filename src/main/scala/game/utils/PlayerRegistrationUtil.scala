@@ -48,7 +48,7 @@ object PlayerRegistrationUtil {
     println("Enter player name: ")
     val newUser = InputMatcher.getInput //retrieve username form console
 
-    if (newUser.length == 0 || newUser == " ") {
+    if (newUser.length == 0 || newUser.trim.isEmpty) {
       println("Player name can't be empty")
       registerUser(users)
     } else {
