@@ -1,6 +1,7 @@
 package game
 
 import game.utils.Rules._
+import game.utils.TextContainer._
 import game.utils._
 
 /**
@@ -14,11 +15,7 @@ object GooseGame extends App {
   def start(): Unit = {
 
     // welcoming message
-    println(
-      "Welcome to the Game of the Goose!\n" +
-        "Type \"about\" to see the game rules\n" +
-        "Type \"play\" to start users registration."
-    )
+    println(HELLO_MESSAGE)
 
     // start receiving commands: play, about, etc.
     CommandProcessor.initialCommandProcessing()
@@ -56,7 +53,7 @@ object GooseGame extends App {
     }
 
     def exit(): Roll = {
-      println("Bye!")
+      println(BYE_MESSAGE)
       System.exit(0)
       emptyDice
     }
@@ -164,7 +161,7 @@ object GooseGame extends App {
     def playRound(turnOf: String, users: Users): Unit =
 
     // check if any user is at position 63, and leave if true
-      if (users.exists(_._2 == END)) println("\nGame over")
+      if (users.exists(_._2 == END)) println(GAME_OVER_MESSAGE)
       else {
 
         // print where everyone is standing
@@ -187,7 +184,7 @@ object GooseGame extends App {
       }
 
     // give a hint about who is the next to go
-    println("Hint: to move type \"move player-name\"")
+    println(MOVE_HINT)
 
     // starts the first round of the game
     playRound(RandomUtil.selectFirst(users), users)

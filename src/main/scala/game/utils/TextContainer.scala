@@ -76,4 +76,18 @@ object TextContainer {
     * Empty username error
     */
   val USER_NAME_EMPTY_ERROR = "Player name can't be empty"
+
+  /**
+    * How to move user hint
+    */
+  val MOVE_HINT = "Hint: to move type \"move player-name\""
+
+  /**
+    * Game over message
+    */
+  val GAME_OVER_MESSAGE = "\nGame over"
+
+  val HELLO_MESSAGE = "Welcome to the Game of the Goose!\n" +
+                      "Type \"about\" to see the game rules\n" +
+                      "Type \"play\" to start users registration."
 }
