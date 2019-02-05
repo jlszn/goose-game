@@ -37,7 +37,7 @@ object RandomUtil {
    * @return the first user
    */
   def selectFirst(users: Users): String = {
-    println(s"Now we will see how will be the first to move!")
+    println("Now we will see how will be the first to move!")
 
     val first = if (users.nonEmpty) users.keys.toList.apply(random.nextInt(users.size)) else ""
 

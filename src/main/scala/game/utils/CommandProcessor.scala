@@ -44,7 +44,7 @@ object CommandProcessor {
   def initialCommandProcessing(): Unit = {
     val initialInput = scala.io.StdIn.readLine()
 
-    initialInput match {
+    initialInput.toLowerCase() match {
       case "about" =>
         println(about)
         initialCommandProcessing()
@@ -71,7 +71,6 @@ object CommandProcessor {
    */
   def isStarted: Boolean = {
     val startInput = scala.io.StdIn.readLine()
-
     if (startInput != " ") {
       println("Hint: for start a game - press Space bar and Enter")
       isStarted
