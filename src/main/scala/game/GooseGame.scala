@@ -146,29 +146,33 @@ object GooseGame extends App {
    */
   def play(users: Users): Unit = {
 
+    def outputScore(turnOf: String, users: Users): Unit = {
+      println("\nScore: ")
+      for ((name, position) <- users) println(s"name: $name, position: $position")
+      println(s"\n$turnOf make your move!")
+    }
+
     def playRound(turnOf: String, users: Users): Unit =
+
+    // check if any user is at position 63, and leave if true
       if (users.exists(_._2 == END)) println("\nGame over")
       else {
-        println("\nScore: ")
-        for ((name, position) <- users) println(s"name: $name, position: $position")
-        println(s"\n$turnOf make your move!")
 
-        val rolled: Roll = roll(turnOf)
+        outputScore(turnOf, users) // print where everyone is standing
 
-        val movedUsers: Users = {
-          val moved = move(turnOf, rolled._1 + rolled._2, users)
-          println(moved._1)
-          moved._2
-        }
+        val rolled: Roll = roll(turnOf) // roll the dice
 
-        val nextUser: String = CommandProcessor.nextUser(users, turnOf)
+        val moved = move(turnOf, rolled._1 + rolled._2, users) // do the moving
+        println(moved._1) // output moving message
 
-        playRound(nextUser, movedUsers)
+        val nextUser: String = CommandProcessor.nextUser(users, turnOf) // find the user, who's turn to go is next
+
+        playRound(nextUser, moved._2) // play another round, pass next user and users with updated positions
       }
 
-    println("Hint: to move type \"move player-name\"")
+    println("Hint: to move type \"move player-name\"") // give a hint about who is the next to go
 
-    playRound(RandomUtil.selectFirst(users), users)
+    playRound(RandomUtil.selectFirst(users), users) // starts the first round of the game
   }
 
   start()
