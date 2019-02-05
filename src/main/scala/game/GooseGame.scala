@@ -13,12 +13,14 @@ object GooseGame extends App {
    */
   def start(): Unit = {
 
+    // welcoming message
     println(
       "Welcome to the Game of the Goose!\n" +
         "Type \"about\" to see the game rules\n" +
         "Type \"play\" to start users registration."
     )
 
+    // start receiving commands: play, about, etc.
     CommandProcessor.initialCommandProcessing()
   }
 
@@ -32,6 +34,10 @@ object GooseGame extends App {
 
     val input = InputMatcher.getInput
 
+    val emptyDice = (0, 0) // convenience method for exiting and restarting
+
+    def rollDice: Roll = roll(turnOf)
+
     def moveUser(): Roll = {
       val dice = RandomUtil.roll()
       println(s"$turnOf rolled dice: " + dice._1 + ", " + dice._2)
@@ -40,25 +46,26 @@ object GooseGame extends App {
 
     def wrongUser(): Roll = {
       println(s"""Wrong user, try "move $turnOf"""")
-      roll(turnOf)
+      rollDice
     }
 
     def badInput(): Roll = {
-      println(s"""Wrong command, try "move $turnOf"""")
-      roll(turnOf)
+      println(s"""Unknown command, try "move $turnOf"""")
+      rollDice
     }
 
     def exit(): Roll = {
       println("Bye!")
       System.exit(0)
-      (0, 0)
+      emptyDice
     }
 
     def restart(): Roll = {
       GooseGame.start()
-      (0, 0)
+      emptyDice
     }
 
+    // matches on the input and acts accordingly
     InputMatcher.getType(input, Some(turnOf)) match {
       case MoveUser => moveUser()
       case BadUser => wrongUser()
@@ -146,6 +153,7 @@ object GooseGame extends App {
    */
   def play(users: Users): Unit = {
 
+    // outputs the current score
     def outputScore(turnOf: String, users: Users): Unit = {
       println("\nScore: ")
       for ((name, position) <- users) println(s"name: $name, position: $position")
@@ -158,23 +166,33 @@ object GooseGame extends App {
       if (users.exists(_._2 == END)) println("\nGame over")
       else {
 
-        outputScore(turnOf, users) // print where everyone is standing
+        // print where everyone is standing
+        outputScore(turnOf, users)
 
-        val rolled: Roll = roll(turnOf) // roll the dice
+        // roll the dice
+        val rolled: Roll = roll(turnOf)
 
-        val moved = move(turnOf, rolled._1 + rolled._2, users) // do the moving
-        println(moved._1) // output moving message
+        // do the moving
+        val moved = move(turnOf, rolled._1 + rolled._2, users)
 
-        val nextUser: String = CommandProcessor.nextUser(users, turnOf) // find the user, who's turn to go is next
+        // output moving message
+        println(moved._1)
 
-        playRound(nextUser, moved._2) // play another round, pass next user and users with updated positions
+        // find the user, who's turn to go is next
+        val nextUser: String = CommandProcessor.nextUser(users, turnOf)
+
+        // play another round, pass next user and users with updated positions
+        playRound(nextUser, moved._2)
       }
 
-    println("Hint: to move type \"move player-name\"") // give a hint about who is the next to go
+    // give a hint about who is the next to go
+    println("Hint: to move type \"move player-name\"")
 
-    playRound(RandomUtil.selectFirst(users), users) // starts the first round of the game
+    // starts the first round of the game
+    playRound(RandomUtil.selectFirst(users), users)
   }
 
+  // starts the game
   start()
 
 }
