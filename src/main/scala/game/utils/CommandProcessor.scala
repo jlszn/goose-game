@@ -49,13 +49,13 @@ object CommandProcessor {
   def initialCommandProcessing(): Unit = {
     val input = InputMatcher.getInput.toLowerCase //read a command
 
-    //Print an about message and run again
+    // print the about message and run again
     def printAbout(): Unit = {
       println(about)
       initialCommandProcessing() //restart an processing
     }
 
-    //Start a registration and start a game
+    // start registration and start a game
     def startGame(): Unit = {
       val users: Users = PlayerRegistrationUtil.register //runs the registration
       println("Push Space bar and Enter to start")
@@ -65,13 +65,13 @@ object CommandProcessor {
       }
     }
 
-    //Print a message about unknown command and run an initialization again
+    // print the message about unknown command and run initialization again
     def printUnknownCommand(): Unit = {
       println("Unknown command.\nType \"about\" to see the game rules, or skip to start users registration.")
       initialCommandProcessing() //restart the processing
     }
 
-    //Define a method according to user input
+    // define a method according to user input
     InputMatcher.getType(input) match {
       case About => printAbout()
       case Play => startGame()
@@ -90,11 +90,11 @@ object CommandProcessor {
     val input = InputMatcher.getInput //read a command
 
     InputMatcher.getType(input) match {
-      case Space => true //Start a game
-      case Exit => exit() //Exit a game
+      case Space => true // start a game
+      case Exit => exit() // exit a game
         false
       case _ => println("Hint: to start a game press Space bar and Enter")
-        isStarted // Try again if there is no such command
+        isStarted // try again if there is no such command
     }
 
   }
