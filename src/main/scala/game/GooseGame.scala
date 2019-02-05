@@ -34,7 +34,8 @@ object GooseGame extends App {
 
     val input = InputMatcher.getInput
 
-    val emptyDice = (0, 0) // convenience method for exiting and restarting
+    // convenience value for exiting and restarting
+    val emptyDice = (0, 0)
 
     def rollDice: Roll = roll(turnOf)
 

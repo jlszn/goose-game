@@ -49,7 +49,7 @@ object PlayerRegistrationUtil {
   def registerUser(users: Users): Users = {
     println(USER_NAME_INPUT)
 
-    //retrieve username form console
+    // retrieve username form console
     val newUser = InputMatcher.getInput
 
     if (newUser.length == 0 || newUser.trim.isEmpty) {
