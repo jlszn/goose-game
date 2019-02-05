@@ -4,10 +4,13 @@ import game.utils.Rules._
 import game.utils.{CommandsProcessor, RandomUtil}
 
 /**
-  * The main class. GooseGame contains
+  * The main class. GooseGame contains methods used for game process controlling.
   */
 object GooseGame extends App {
 
+  /**
+    * Util method that starts an application.
+    */
   def start(): Unit = {
 
     println("Welcome to the Game of the Goose!")
@@ -19,6 +22,11 @@ object GooseGame extends App {
     CommandsProcessor.initialCommandsProcessing()
   }
 
+  /**
+    * Util method represents a 2 dice roll for a some user. It includes command validation too.
+    * @param turnOf Current user
+    * @return 2 dice roll for a user
+    */
   def roll(turnOf: String): (Int, Int) = {
 
     scala.io.StdIn.readLine().trim.split(" ") match {
@@ -36,7 +44,14 @@ object GooseGame extends App {
 
   }
 
-  // returns message and new order of users
+  /**
+    * Method that represents a single move. It contains a set of additional internal methods.
+    * @param user Current user
+    * @param diceSum Sum of 2 roll dices
+    * @param users A collection of all users
+    * @return A tuple of (String, Map[String, Int]) type. String represents a message got during a move.
+    *         Map[String, Int] represents an updated list of users that will be used during next turn.
+    */
   def move(user: String, diceSum: Int, users: Users): (String, Users) = {
 
     // handle emptiness
@@ -89,6 +104,10 @@ object GooseGame extends App {
 
   // before each round, output where everyone is standing
 
+  /**
+    * Util method that starts a game.
+    * @param users A collection of available users.
+    */
   def play(users: Users): Unit = {
 
     def playRound(turnOf: String, users: Users): Unit =
