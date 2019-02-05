@@ -1,7 +1,8 @@
 package game.utils
 
 import game._
-import TextContainer._
+import game.utils.TextContainer._
+
 /**
  * CommandsProcessor contains main methods for game controlling with some additional util methods.
  */
@@ -41,14 +42,15 @@ object CommandProcessor {
    * @return Next User
    */
   def nextUser(users: Users, current: String): String =
+  // takes an index of current user, adds 1 to it and divides by the size using mod.
     users.keysIterator.toList((users.keysIterator.indexOf(current) + 1) % users.size)
-    // It takes an index of current user, adds 1 to it and divides by the size using mod.
 
   /**
    * Method for processing initial console commands "about" and "play".
    */
   def initialCommandProcessing(): Unit = {
-    val input = InputMatcher.getInput.toLowerCase //read a command
+    //read command
+    val input = InputMatcher.getInput.toLowerCase
 
     // print the about message and run again
     def printAbout(): Unit = {
