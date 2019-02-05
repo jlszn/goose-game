@@ -1,7 +1,7 @@
 package game.utils
 
 import java.io.{ByteArrayInputStream, ByteArrayOutputStream}
-import Rules.START_HINT
+import TextContainer.START_HINT
 
 import org.specs2.mutable.Specification
 
