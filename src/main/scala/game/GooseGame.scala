@@ -110,9 +110,13 @@ object GooseGame extends App {
     */
   def play(users: Users): Unit = {
 
-    def playRound(turnOf: String, users: Users): Unit =
+    def playRound(turnOf: String, users: Users): Unit = {
+
+      println("Points - " + users)
+
       if (users.exists(_._2 == END)) println("Game over")
       else {
+
         val dice: (Int, Int) = roll(turnOf)
 
         def moveThis: (String, Users) = move(turnOf, dice._1 + dice._2, users)
@@ -127,6 +131,8 @@ object GooseGame extends App {
 
         playRound(nextUser, movedUsers)
       }
+
+    }
 
     playRound(RandomUtil.selectFirst(users), users)
   }
