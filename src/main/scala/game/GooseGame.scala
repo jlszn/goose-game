@@ -19,15 +19,17 @@ object GooseGame extends App {
   // add checking if name exists
   // add checking if input is ok
   def roll(turnOf: String): (Int, Int) = {
-    val input = scala.io.StdIn.readLine()
-
-    if (input == s"move $turnOf") {
-      val dice = RandomUtil.roll()
-      println(s"$turnOf rolled dice: " + dice._1 + ", " + dice._2)
-      dice
-    } else {
-      println("Wrong user")
-      roll(turnOf)
+    scala.io.StdIn.readLine().trim.split(" ") match {
+      case Array("move", user) if user == turnOf =>
+        val dice = RandomUtil.roll()
+        println(s"$turnOf rolled dice: " + dice._1 + ", " + dice._2)
+        dice
+      case Array("move", user) if user != turnOf =>
+        println(s"""Wrong user, try "move $turnOf"""")
+        roll(turnOf)
+      case _ =>
+        println(s"""Wrong command, try "move $turnOf"""")
+        roll(turnOf)
     }
   }
 
