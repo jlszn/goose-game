@@ -42,7 +42,7 @@ object CommandProcessor {
    * Method for processing initial console commands "about" and "play".
    */
   def initialCommandProcessing(): Unit = {
-    val input = scala.io.StdIn.readLine()
+    val input = InputMatcher.getInput
 
     def printAbout(): Unit = {
       println(about)
@@ -76,13 +76,12 @@ object CommandProcessor {
    * @return true if command to start was given else false
    */
   def isStarted: Boolean = {
-    val input = scala.io.StdIn.readLine()
+    val input = InputMatcher.getInput
 
-    input match {
-      case " " =>
-        println("Hint: to start a game press Space bar and Enter\n")
+    InputMatcher.getType(input) match {
+      case Space => true
+      case _ => println("Hint: to start a game press Space bar and Enter")
         isStarted
-      case _ => true
     }
 
   }

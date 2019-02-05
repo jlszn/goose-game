@@ -2,9 +2,9 @@ package game.utils
 
 import game.Users
 
- /**
-  * PlayerRegistrationUtil is a util class that contains methods for registration logic.
-  */
+/**
+ * PlayerRegistrationUtil is a util class that contains methods for registration logic.
+ */
 object PlayerRegistrationUtil {
 
   def register: Users = registerUsers(retrieveCount, Map.empty)
@@ -17,13 +17,13 @@ object PlayerRegistrationUtil {
   def retrieveCount: Int = {
     println("Enter number of players (from 2 to 6): ")
 
-    val count: String = scala.io.StdIn.readLine()
+    val count: String = InputMatcher.getInput
 
-    if (count.matches("[2-6]"))
-      count.toInt
-    else {
-      println("Wrong input or wrong players count! Try again.")
-      retrieveCount
+    InputMatcher.getType(count) match {
+      case RightPlayersNumber => count.toInt
+      case _ =>
+        println("Wrong input or wrong players count! Try again.")
+        retrieveCount
     }
   }
 
@@ -31,7 +31,7 @@ object PlayerRegistrationUtil {
    * Method for registering new players in game
    *
    * @param usersCount Count of Players
-   * @param users already registered Players
+   * @param users      already registered Players
    * @return Map of registered users
    */
   def registerUsers(usersCount: Int, users: Users): Users =
@@ -46,7 +46,7 @@ object PlayerRegistrationUtil {
    */
   def registerUser(users: Users): Users = {
     println("Enter player name: ")
-    val newUser = scala.io.StdIn.readLine()
+    val newUser = InputMatcher.getInput
 
     checkUsers(users, newUser)
   }
@@ -54,7 +54,7 @@ object PlayerRegistrationUtil {
   /**
    * Method for checking players' names for uniqueness
    *
-   * @param newUser new player name for checking
+   * @param newUser      new player name for checking
    * @param currentUsers already registered Players
    * @return Map of registered users
    */

@@ -29,7 +29,7 @@ object GooseGame extends App {
    * @return 2 dice roll for a user
    */
   def roll(turnOf: String /*, users: Users*/): (Int, Int) = {
-    val input = scala.io.StdIn.readLine()
+    val input = InputMatcher.getInput
 
     def moveUser(): (Int, Int) = {
       val dice = RandomUtil.roll()
