@@ -17,12 +17,12 @@ object PlayerRegistrationUtil {
   def retrieveCount: Int = {
     println("Enter number of players (from 2 to 6): ")
 
-    val count: String = InputMatcher.getInput
+    val count: String = InputMatcher.getInput // get count of players from console
 
-    InputMatcher.getType(count) match {
-      case RightPlayersNumber => count.toInt
+    InputMatcher.getType(count) match { // check what input from console is Int
+      case RightPlayersNumber => count.toInt // if Int - return number for players
       case _ =>
-        println("Wrong input or wrong players count! Try again.")
+        println("Wrong input or wrong players count! Try again.") // if not - sent error message to console and call retrieveCount method again for input count of players
         retrieveCount
     }
   }
@@ -35,8 +35,8 @@ object PlayerRegistrationUtil {
    * @return Map of registered users
    */
   def registerUsers(usersCount: Int, users: Users): Users =
-    if (usersCount == 0) users
-    else registerUsers(usersCount - 1, users ++ registerUser(users))
+    if (usersCount == 0) users //if count of users end - return already registered players
+    else registerUsers(usersCount - 1, users ++ registerUser(users)) // if count still not 0 - register new player recursively
 
   /**
    * Method for receiving new username from console and passing it to be checked for uniqueness
@@ -46,9 +46,9 @@ object PlayerRegistrationUtil {
    */
   def registerUser(users: Users): Users = {
     println("Enter player name: ")
-    val newUser = InputMatcher.getInput
+    val newUser = InputMatcher.getInput //retrieve username form console
 
-    checkUsers(users, newUser)
+    checkUsers(users, newUser) // pass new username to check for uniqueness
   }
 
   /**
@@ -63,10 +63,10 @@ object PlayerRegistrationUtil {
     // if new username is the same as another one in the Map - request a username again
     if (currentUsers.contains(newUser)) {
       println(s"User $newUser already in game!")
-      registerUser(currentUsers)
+      registerUser(currentUsers) //if user already exists in map - call registerUser again for retrieve new username/
     } else {
       println(s"$newUser joined!")
-      Map(newUser -> 0)
+      Map(newUser -> 0)//if username are unique - put it into map with zero position
     }
   }
 
