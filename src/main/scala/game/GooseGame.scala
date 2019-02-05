@@ -1,7 +1,7 @@
 package game
 
 import game.utils.Rules._
-import game.utils.{CommandsProcessor, RandomUtil}
+import game.utils.{CommandProcessor, RandomUtil}
 
 /**
  * The main class. GooseGame contains methods used for game process controlling.
@@ -19,7 +19,7 @@ object GooseGame extends App {
         "Type 'play' to start users registration."
     )
 
-    CommandsProcessor.initialCommandsProcessing()
+    CommandProcessor.initialCommandProcessing()
   }
 
   /**
@@ -122,9 +122,15 @@ object GooseGame extends App {
    */
   def play(users: Users): Unit = {
 
-    def playRound(turnOf: String, users: Users): Unit =
+    def playRound(turnOf: String, users: Users): Unit = {
+
+      println("Points - " + users)
+
       if (users.exists(_._2 == END)) println("Game over")
       else {
+
+        println(s"$turnOf make your move!")
+
         val dice: (Int, Int) = roll(turnOf)
 
         def moveThis: (String, Users) = move(turnOf, dice._1 + dice._2, users)
@@ -135,10 +141,12 @@ object GooseGame extends App {
           moved._2
         }
 
-        val nextUser: String = CommandsProcessor.nextUser(users, turnOf)
+        val nextUser: String = CommandProcessor.nextUser(users, turnOf)
 
         playRound(nextUser, movedUsers)
       }
+
+    }
 
     playRound(RandomUtil.selectFirst(users), users)
   }

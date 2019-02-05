@@ -5,7 +5,7 @@ import game.{GooseGame, Users}
 /**
   * CommandsProcessor contains main methods for game controlling with some additional util methods.
   */
-object CommandsProcessor {
+object CommandProcessor {
 
   /**
    * A string used as the description of the project
@@ -34,19 +34,20 @@ object CommandsProcessor {
     * @return Next User
     */
   def nextUser(users: Users, current: String): String = {
-    users.keysIterator.toList((users.keysIterator.indexOf(current) + 1) % users.size)
+    val next = users.keysIterator.toList((users.keysIterator.indexOf(current) + 1) % users.size)
+    next
   }
 
   /**
    * Method for processing initial console commands "about" and "play".
    */
-  def initialCommandsProcessing(): Unit = {
+  def initialCommandProcessing(): Unit = {
     val initialInput = scala.io.StdIn.readLine()
 
     initialInput match {
       case "about" =>
         println(about)
-        initialCommandsProcessing()
+        initialCommandProcessing()
 
       case "play" =>
         val users: Map[String, Int] = PlayerRegistrationUtil.register
@@ -59,7 +60,7 @@ object CommandsProcessor {
       case _ =>
         println("Command not found.")
         println("Type 'about' to see the game rules, or skip to start users registration.")
-        initialCommandsProcessing()
+        initialCommandProcessing()
     }
   }
 
