@@ -35,7 +35,6 @@ object CommandProcessor {
     */
   def nextUser(users: Users, current: String): String = {
     val next = users.keysIterator.toList((users.keysIterator.indexOf(current) + 1) % users.size)
-    println(s"$next make your move!")
     next
   }
 

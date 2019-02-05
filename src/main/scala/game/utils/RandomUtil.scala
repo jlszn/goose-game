@@ -41,7 +41,7 @@ object RandomUtil {
 
     val first = if (users.nonEmpty) users.keys.toList.apply(random.nextInt(users.size)) else ""
 
-    println( if(first.nonEmpty) s"$first make your move!" else "You have no users")
+    if (first.isEmpty) println("You have no users")
 
     first
   }

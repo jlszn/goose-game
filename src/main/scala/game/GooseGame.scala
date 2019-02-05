@@ -117,6 +117,8 @@ object GooseGame extends App {
       if (users.exists(_._2 == END)) println("Game over")
       else {
 
+        println(s"$turnOf make your move!")
+
         val dice: (Int, Int) = roll(turnOf)
 
         def moveThis: (String, Users) = move(turnOf, dice._1 + dice._2, users)
