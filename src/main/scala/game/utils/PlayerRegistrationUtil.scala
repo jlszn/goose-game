@@ -2,7 +2,7 @@ package game.utils
 
 import game.Users
 
-/**
+ /**
   * PlayerRegistrationUtil is a util class that contains methods for registration logic.
   */
 object PlayerRegistrationUtil {
@@ -32,14 +32,14 @@ object PlayerRegistrationUtil {
    *
    * @param usersCount Count of Players
    * @param users already registered Players
-   * @return Map - of registered users
+   * @return Map of registered users
    */
   def registerUsers(usersCount: Int, users: Users): Users =
     if (usersCount == 0) users
     else registerUsers(usersCount - 1, users ++ registerUser(users))
 
   /**
-   * Method for retrieving new username from console and pass to check for uniqueness
+   * Method for receiving new username from console and passing it to be checked for uniqueness
    *
    * @param users already registered Players
    * @return Map - of registered users
@@ -52,11 +52,11 @@ object PlayerRegistrationUtil {
   }
 
   /**
-   * Method for check players names for uniqueness
+   * Method for checking players' names for uniqueness
    *
    * @param newUser new player name for checking
    * @param currentUsers already registered Players
-   * @return Map - of registered users
+   * @return Map of registered users
    */
   def checkUsers(currentUsers: Users, newUser: String): Users = {
 

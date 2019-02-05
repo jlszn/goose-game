@@ -3,8 +3,8 @@ package game.utils
 import game.{GooseGame, Users}
 
 /**
-  * CommandsProcessor contains main methods for game controlling with some additional util methods.
-  */
+ * CommandsProcessor contains main methods for game controlling with some additional util methods.
+ */
 object CommandProcessor {
 
   /**
@@ -28,15 +28,15 @@ object CommandProcessor {
     """.stripMargin
 
   /**
-    * This method is used for iterating a map. It takes an index of current user, adds 1 to it and divides by a size using mod.
-    * @param users Current Users
-    * @param current Current User
-    * @return Next User
-    */
-  def nextUser(users: Users, current: String): String = {
-    val next = users.keysIterator.toList((users.keysIterator.indexOf(current) + 1) % users.size)
-    next
-  }
+   * This method is used for iterating over a map. It takes an index of current user,
+   * adds 1 to it and divides by the size using mod.
+   *
+   * @param users   Current Users
+   * @param current Current User
+   * @return Next User
+   */
+  def nextUser(users: Users, current: String): String =
+    users.keysIterator.toList((users.keysIterator.indexOf(current) + 1) % users.size)
 
   /**
    * Method for processing initial console commands "about" and "play".
@@ -50,7 +50,7 @@ object CommandProcessor {
         initialCommandProcessing()
 
       case "play" =>
-        val users: Map[String, Int] = PlayerRegistrationUtil.register
+        val users: Users = PlayerRegistrationUtil.register
         println("Push Space bar and Enter to start")
         if (isStarted) {
           println("Let's start!")
@@ -65,26 +65,25 @@ object CommandProcessor {
         GooseGame.start()
 
       case _ =>
-        println("Command not found.")
-        println("Type 'about' to see the game rules, or skip to start users registration.")
+        println("Command not found.\nType 'about' to see the game rules, or skip to start users registration.")
         initialCommandProcessing()
     }
   }
 
   /**
-   * Method for checking start game button after registration.
+   * Method for checking if start game command was used after registration.
    *
-   * @return true if game works else false
+   * @return true if command to start was given else false
    */
   def isStarted: Boolean = {
     val startInput = scala.io.StdIn.readLine()
 
     if (startInput != " ") {
-      println("Hint: for start a game - press Space bar and Enter")
+      println("Hint: to start a game - press Space bar and Enter")
       isStarted
-    } else {
+    } else
       true
-    }
+
   }
 
 }
