@@ -44,7 +44,7 @@ object CommandProcessor {
   def initialCommandProcessing(): Unit = {
     val initialInput = scala.io.StdIn.readLine()
 
-    initialInput match {
+    initialInput.toLowerCase match {
       case "about" =>
         println(about)
         initialCommandProcessing()
@@ -56,6 +56,13 @@ object CommandProcessor {
           println("Let's start!")
           GooseGame.play(users)
         }
+
+      case "exit" =>
+        println("Bye!")
+        System.exit(0)
+
+      case "restart" =>
+        GooseGame.start()
 
       case _ =>
         println("Command not found.")

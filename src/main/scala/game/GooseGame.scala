@@ -38,6 +38,16 @@ object GooseGame extends App {
       case Array("move", user) if user != turnOf =>
         println(s"""Wrong user, try "move $turnOf"""")
         roll(turnOf)
+
+      case Array("exit") =>
+        println("Bye!")
+        System.exit(0)
+        (0, 0)
+
+      case Array("restart") =>
+        GooseGame.start()
+        (0, 0)
+
       case _ =>
         println(s"""Wrong command, try "move $turnOf"""")
         roll(turnOf)
