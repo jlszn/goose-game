@@ -17,12 +17,12 @@ object CommandProcessor {
    */
   val about: String =
     """
-      |It's an Scala implementation of "The Goose Game Kata" (https://en.wikipedia.org/wiki/Game_of_the_Goose)
+      |It's a Scala implementation of "The Goose Game Kata" (https://en.wikipedia.org/wiki/Game_of_the_Goose)
       |How to use:
-      | 1. Define an amount of users and write it in a console.
+      | 1. After you type "play" in the console, you will be asked to define the amount of users
       | 2. Write users' names in the console
       | 3. Write "move <some-player-name>
-      | 4. Repeat until win
+      | 4. Repeat until someone wins
       |Rules:
       | During the game program will throw 2 dice every turn. Values of such dice define your future steps.
       | You will win if you reach the 63. But if you collect more than 63, you will be moved back on a difference between 63 and your current amount
