@@ -26,14 +26,14 @@ additional features if we still have time tomorrow:
 
 - provide a way to finish the game anytime - ask if the user wants to restart or just quit the app
 - DONE provide a game description/rules on "about" input
-- ? tests
+- IN PROGRESS tests
 - DONE randomize who would be the first to roll
 - DONE support from 2 to 6 players
 
 - ? validate with Eithers
 
-- add checking if name exists
-- add checking if input is ok
-- add outputing of next user's name
+- add checking if name exists in moving
+- DONE add checking if input is ok
+- DONE add outputing of next user's name
 - finish 
 - restart (?)

@@ -1,6 +1,6 @@
 package game.utils
 
-import game.{GooseGame, Users}
+import game._
 
 /**
  * CommandsProcessor contains main methods for game controlling with some additional util methods.
@@ -42,24 +42,31 @@ object CommandProcessor {
    * Method for processing initial console commands "about" and "play".
    */
   def initialCommandProcessing(): Unit = {
-    val initialInput = scala.io.StdIn.readLine()
+    val input = scala.io.StdIn.readLine()
 
-    initialInput match {
-      case "about" =>
-        println(about)
-        initialCommandProcessing()
+    def printAbout(): Unit = {
+      println(about)
+      initialCommandProcessing()
+    }
 
-      case "play" =>
-        val users: Users = PlayerRegistrationUtil.register
-        println("Push Space bar and Enter to start")
-        if (isStarted) {
-          println("Let's start!")
-          GooseGame.play(users)
-        }
+    def startGame(): Unit = {
+      val users: Users = PlayerRegistrationUtil.register
+      println("Push Space bar and Enter to start")
+      if (isStarted) {
+        println("Let's start!")
+        GooseGame.play(users)
+      }
+    }
 
-      case _ =>
-        println("Command not found.\nType 'about' to see the game rules, or skip to start users registration.")
-        initialCommandProcessing()
+    def printUnknownCommand(): Unit = {
+      println("Unknown command.\nType \"about\" to see the game rules, or skip to start users registration.")
+      initialCommandProcessing()
+    }
+
+    InputMatcher.getType(input) match {
+      case About => printAbout()
+      case Play => startGame()
+      case _ => printUnknownCommand()
     }
   }
 
@@ -69,13 +76,14 @@ object CommandProcessor {
    * @return true if command to start was given else false
    */
   def isStarted: Boolean = {
-    val startInput = scala.io.StdIn.readLine()
+    val input = scala.io.StdIn.readLine()
 
-    if (startInput != " ") {
-      println("Hint: to start a game - press Space bar and Enter")
-      isStarted
-    } else
-      true
+    input match {
+      case " " =>
+        println("Hint: to start a game press Space bar and Enter\n")
+        isStarted
+      case _ => true
+    }
 
   }
 

@@ -1,7 +1,7 @@
 package game
 
 import game.utils.Rules._
-import game.utils.{CommandProcessor, RandomUtil}
+import game.utils._
 
 /**
  * The main class. GooseGame contains methods used for game process controlling.
@@ -13,9 +13,9 @@ object GooseGame extends App {
    */
   def start(): Unit = {
 
-    println("Welcome to the Game of the Goose!")
     println(
-      "Type \"about\" to see the game rules\n" +
+      "Welcome to the Game of the Goose!\n" +
+        "Type \"about\" to see the game rules\n" +
         "Type \"play\" to start users registration."
     )
 
@@ -28,21 +28,30 @@ object GooseGame extends App {
    * @param turnOf Current user
    * @return 2 dice roll for a user
    */
-  def roll(turnOf: String): (Int, Int) = {
+  def roll(turnOf: String /*, users: Users*/): (Int, Int) = {
+    val input = scala.io.StdIn.readLine()
 
-    scala.io.StdIn.readLine().trim.split(" ") match {
-      case Array("move", user) if user == turnOf =>
-        val dice = RandomUtil.roll()
-        println(s"$turnOf rolled dice: " + dice._1 + ", " + dice._2)
-        dice
-      case Array("move", user) if user != turnOf =>
-        println(s"""Wrong user, try "move $turnOf"""")
-        roll(turnOf)
-      case _ =>
-        println(s"""Wrong command, try "move $turnOf"""")
-        roll(turnOf)
+    def moveUser(): (Int, Int) = {
+      val dice = RandomUtil.roll()
+      println(s"$turnOf rolled dice: " + dice._1 + ", " + dice._2)
+      dice
     }
 
+    def wrongUser(): (Int, Int) = {
+      println(s"""Wrong user, try "move $turnOf"""")
+      roll(turnOf)
+    }
+
+    def badInput(): (Int, Int) = {
+      println(s"""Wrong command, try "move $turnOf"""")
+      roll(turnOf)
+    }
+
+    InputMatcher.getType(input, Some(turnOf)) match {
+      case MoveUser => moveUser()
+      case BadUser => wrongUser()
+      case _ => badInput()
+    }
   }
 
   /**
@@ -124,12 +133,11 @@ object GooseGame extends App {
   def play(users: Users): Unit = {
 
     def playRound(turnOf: String, users: Users): Unit =
-      if (users.exists(_._2 == END)) println("Game over")
+      if (users.exists(_._2 == END)) println("\nGame over")
       else {
-        println("Score: ")
-        for ((name, position) <- users) printf("name: %s, position: %s\n", name, position)
-
-        println(s"$turnOf make your move!")
+        println("\nScore: ")
+        for ((name, position) <- users) println(s"name: $name, position: $position")
+        println(s"\n$turnOf make your move!")
 
         val dice: (Int, Int) = roll(turnOf)
 
