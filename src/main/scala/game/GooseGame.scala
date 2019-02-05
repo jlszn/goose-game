@@ -3,6 +3,9 @@ package game
 import game.utils.Rules._
 import game.utils.{CommandsProcessor, RandomUtil}
 
+/**
+  * The main class. GooseGame contains
+  */
 object GooseGame extends App {
 
   def start(): Unit = {
@@ -16,9 +19,8 @@ object GooseGame extends App {
     CommandsProcessor.initialCommandsProcessing()
   }
 
-  // add checking if name exists
-  // add checking if input is ok
   def roll(turnOf: String): (Int, Int) = {
+
     scala.io.StdIn.readLine().trim.split(" ") match {
       case Array("move", user) if user == turnOf =>
         val dice = RandomUtil.roll()
@@ -31,6 +33,7 @@ object GooseGame extends App {
         println(s"""Wrong command, try "move $turnOf"""")
         roll(turnOf)
     }
+
   }
 
   // returns message and new order of users

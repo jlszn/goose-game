@@ -2,6 +2,9 @@ package game.utils
 
 import game.Users
 
+/**
+  * PlayerRegistrationUtil is a util class that contains methods for registration logic.
+  */
 object PlayerRegistrationUtil {
 
   def register: Users = registerUsers(retrieveCount, Map.empty)

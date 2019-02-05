@@ -2,6 +2,9 @@ package game.utils
 
 import game.{GooseGame, Users}
 
+/**
+  * CommandsProcessor contains main methods for game controlling with some additional util methods.
+  */
 object CommandsProcessor {
 
   /**
@@ -63,7 +66,7 @@ object CommandsProcessor {
   /**
    * Method for checking start game button after registration.
    *
-   * @return Boolean
+   * @return true if game works else false
    */
   def isStarted: Boolean = {
     val startInput = scala.io.StdIn.readLine()

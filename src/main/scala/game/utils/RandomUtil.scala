@@ -4,11 +4,23 @@ import java.security.SecureRandom
 
 import game.Users
 
+/**
+  * RandomUtil is a util class that contains methods for controlling random processes inside of the application.
+  */
 object RandomUtil {
-
+  /**
+    * The least cube side
+    */
   private val START = 1
+  /**
+    * The biggest cube side
+    */
   private val END = 6
 
+  /**
+    * Pseudo-number generator. A resulting sequence of SecureRandom is less predictable than sequence of Random.
+    * SecureRandom is initialised without any seed, so it will use it's own.
+    */
   private val random = new SecureRandom()
 
   /**

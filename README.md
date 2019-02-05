@@ -17,9 +17,9 @@ All sources are placed inside of the `./src/main/scala/` folder
 (un)expected behaviour to handle:
 
 - DONE check if name doesn't yet exist
-- ? check if moving input is correct, else give a hint: "To move a player type "Move name""
-- ? check if "move $name" is a registered name
-- ? check if it's the turn of the user from the input, else give user a hint
+- DONE check if moving input is correct, else give a hint: "To move a player type "Move name""
+- DONE check if "move $name" is a registered name
+- DONE check if it's the turn of the user from the input, else give user a hint
 - NOT DONE add comments
 
 additional features if we still have time tomorrow:
