@@ -41,33 +41,37 @@ object CommandProcessor {
    * @return Next User
    */
   def nextUser(users: Users, current: String): String =
-    users.keysIterator.toList((users.keysIterator.indexOf(current) + 1) % users.size)
+    users.keysIterator.toList((users.keysIterator.indexOf(current) + 1) % users.size) // It takes an index of current user, adds 1 to it and divides by the size using mod.
 
   /**
    * Method for processing initial console commands "about" and "play".
    */
   def initialCommandProcessing(): Unit = {
-    val input = InputMatcher.getInput.toLowerCase
+    val input = InputMatcher.getInput.toLowerCase //read a command
 
+    //Print an about message and run again
     def printAbout(): Unit = {
       println(about)
-      initialCommandProcessing()
+      initialCommandProcessing() //restart an processing
     }
 
+    //Start a registration and start a game
     def startGame(): Unit = {
-      val users: Users = PlayerRegistrationUtil.register
+      val users: Users = PlayerRegistrationUtil.register //runs the registration
       println("Push Space bar and Enter to start")
       if (isStarted) {
         println("Let's start!")
-        GooseGame.play(users)
+        GooseGame.play(users) // starts the game
       }
     }
 
+    //Print a message about unknown command and run an initialization again
     def printUnknownCommand(): Unit = {
       println("Unknown command.\nType \"about\" to see the game rules, or skip to start users registration.")
-      initialCommandProcessing()
+      initialCommandProcessing() //restart the processing
     }
 
+    //Define a method according to user input
     InputMatcher.getType(input) match {
       case About => printAbout()
       case Play => startGame()
@@ -83,14 +87,14 @@ object CommandProcessor {
    * @return true if command to start was given else false
    */
   def isStarted: Boolean = {
-    val input = InputMatcher.getInput
+    val input = InputMatcher.getInput //read a command
 
     InputMatcher.getType(input) match {
-      case Space => true
-      case Exit => exit()
+      case Space => true //Start a game
+      case Exit => exit() //Exit a game
         false
       case _ => println("Hint: to start a game press Space bar and Enter")
-        isStarted
+        isStarted // Try again if there is no such command
     }
 
   }
