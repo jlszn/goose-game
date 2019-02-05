@@ -3,6 +3,7 @@
 ## How ro run
  1. Open a console inside of the root folder(goose-game)
  2. Run `sbt run` to start the application
+ 3. Run `sbt test` to start tests
  
 ## Sources
 All sources are placed inside of the `./src/main/scala/` folder
