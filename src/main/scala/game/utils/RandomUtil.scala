@@ -39,9 +39,9 @@ object RandomUtil {
   def selectFirst(users: Users): String = {
     println(s"Now we will see how will be the first to move!")
 
-    val first = users.keys.toList.apply(random.nextInt(users.size))
+    val first = if (users.nonEmpty) users.keys.toList.apply(random.nextInt(users.size)) else ""
 
-    println(s"$first make your move!")
+    println( if(first.nonEmpty) s"$first make your move!" else "You have no users")
 
     first
   }
