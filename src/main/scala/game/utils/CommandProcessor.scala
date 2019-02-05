@@ -41,7 +41,8 @@ object CommandProcessor {
    * @return Next User
    */
   def nextUser(users: Users, current: String): String =
-    users.keysIterator.toList((users.keysIterator.indexOf(current) + 1) % users.size) // It takes an index of current user, adds 1 to it and divides by the size using mod.
+    users.keysIterator.toList((users.keysIterator.indexOf(current) + 1) % users.size)
+    // It takes an index of current user, adds 1 to it and divides by the size using mod.
 
   /**
    * Method for processing initial console commands "about" and "play".

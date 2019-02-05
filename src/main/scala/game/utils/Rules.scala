@@ -25,4 +25,9 @@ object Rules {
    */
   val BRIDGE_END: Int = 12
 
+  /**
+    * The start hint
+    */
+  val START_HINT = "Hint: to start a game press Space bar and Enter\n"
+
 }

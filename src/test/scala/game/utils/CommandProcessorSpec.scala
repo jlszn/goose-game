@@ -1,6 +1,7 @@
 package game.utils
 
 import java.io.{ByteArrayInputStream, ByteArrayOutputStream}
+import Rules.START_HINT
 
 import org.specs2.mutable.Specification
 
@@ -44,7 +45,7 @@ class CommandProcessorSpec extends Specification {
             CommandProcessor.isStarted
           }
         }
-        output.toString must beEqualTo("Hint: to start a game press Space bar and Enter\n")
+        output.toString must beEqualTo(START_HINT + "\n")
       }
 
     }
