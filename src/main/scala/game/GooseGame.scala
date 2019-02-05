@@ -30,25 +30,40 @@ object GooseGame extends App {
    */
   def roll(turnOf: String): Roll = {
 
-    def moveUser(): (Int, Int) = {
+    val input = InputMatcher.getInput
+
+    def moveUser(): Roll = {
       val dice = RandomUtil.roll()
       println(s"$turnOf rolled dice: " + dice._1 + ", " + dice._2)
       dice
     }
 
-    def wrongUser(): (Int, Int) = {
+    def wrongUser(): Roll = {
       println(s"""Wrong user, try "move $turnOf"""")
       roll(turnOf)
     }
 
-    def badInput(): (Int, Int) = {
+    def badInput(): Roll = {
       println(s"""Wrong command, try "move $turnOf"""")
       roll(turnOf)
+    }
+
+    def exit(): Roll = {
+      println("Bye!")
+      System.exit(0)
+      (0, 0)
+    }
+
+    def restart(): Roll = {
+      GooseGame.start()
+      (0, 0)
     }
 
     InputMatcher.getType(input, Some(turnOf)) match {
       case MoveUser => moveUser()
       case BadUser => wrongUser()
+      case Exit => exit()
+      case Restart => restart()
       case _ => badInput()
     }
   }

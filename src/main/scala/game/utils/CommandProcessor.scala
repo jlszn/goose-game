@@ -7,6 +7,11 @@ import game._
  */
 object CommandProcessor {
 
+  def exit(): Unit = {
+    println("Bye!")
+    System.exit(0)
+  }
+
   /**
    * A string used as the description of the project
    */
@@ -66,6 +71,8 @@ object CommandProcessor {
     InputMatcher.getType(input) match {
       case About => printAbout()
       case Play => startGame()
+      case Exit => exit()
+      case Restart => GooseGame.start()
       case _ => printUnknownCommand()
     }
   }
@@ -80,6 +87,8 @@ object CommandProcessor {
 
     InputMatcher.getType(input) match {
       case Space => true
+      case Exit => exit()
+        false
       case _ => println("Hint: to start a game press Space bar and Enter")
         isStarted
     }

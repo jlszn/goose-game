@@ -9,6 +9,10 @@ case object About extends Input
 
 case object Play extends Input
 
+case object Exit extends Input
+
+case object Restart extends Input
+
 case object Space extends Input
 
 case object MoveUser extends Input
@@ -29,6 +33,8 @@ object InputMatcher {
   def getType(input: String, condition: Option[String] = None): Input = (input, condition) match {
     case ("about", None) => About
     case ("play", None) => Play
+    case ("exit", _) => Exit
+    case ("restart", _) => Restart
     case (" ", None) => Space
     case (_, Some(c)) if condition.contains(c) && input == s"move $c" => MoveUser
     case (_, Some(c)) if input == s"move $c" => BadUser
